@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEUS MODUS // ARCHIVE CORE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gte-blue: #00f3ff;
+            --gte-red: #ff3e3e;
+            --gte-dark: #050505;
+        }
+        body {
+            background-color: var(--gte-dark);
+            color: #e0e0e0;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        /* CRT Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 1000;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .header-font { font-family: 'Orbitron', sans-serif; }
+        .cyber-border { border: 1px solid rgba(0, 243, 255, 0.3); }
+        .terminal-panel { background: #0a0a0a; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        
+        .cursor::after {
+            content: "|";
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gte-blue); }
+    </style>
+</head>
+<body class="p-4 md:p-12 text-zinc-300">
+
+    <div class="max-w-5xl mx-auto">
+        
+        <!-- Header -->
+        <header class="mb-8 border-b border-zinc-800 pb-8">
+            <h1 class="text-4xl md:text-6xl font-black text-white header-font tracking-tighter mb-2">DEUS MODUS</h1>
+            <p class="text-cyan-400 tracking-[0.4em] uppercase text-sm">Central Archive // Canonical Retrieval System</p>
+        </header>
+
+        <!-- Advisory -->
+        <div class="cyber-border bg-red-950/10 p-6 mb-8 border-l-4 border-red-500">
+            <h2 class="text-red-500 font-bold mb-2 header-font text-sm uppercase tracking-widest">// ARCHIVE ACCESS: LEVEL 5 //</h2>
+            <p class="text-red-200 text-sm italic">
+                Subject: Singularity Part One – Conception. Analytical assessment of narrative architecture and AGI evolution. 
+                <span class="text-red-500 font-bold ml-2 italic underline">RESTRICTED TO CANONICAL DATA ONLY.</span>
+            </p>
+        </div>
+
+        <!-- Terminal Interface -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            
+            <!-- Command Palette -->
+            <div class="md:col-span-1 space-y-2">
+                <div class="cyber-border p-4 terminal-panel">
+                    <h3 class="text-xs text-zinc-500 mb-4">// COMMAND_PROMPT</h3>
+                    <div class="flex flex-col gap-2">
+                        <button onclick="display('ARCH')" class="text-left text-sm hover:text-cyan-400 transition-colors">>> READ_ARCH</button>
+                        <button onclick="display('MODELS')" class="text-left text-sm hover:text-cyan-400 transition-colors">>> READ_MODELS</button>
+                        <button onclick="display('CHAR')" class="text-left text-sm hover:text-cyan-400 transition-colors">>> READ_CHARS</button>
+                        <button onclick="display('TACTICAL')" class="text-left text-sm hover:text-cyan-400 transition-colors">>> READ_TACTICAL</button>
+                        <button onclick="display('CORP')" class="text-left text-sm hover:text-cyan-400 transition-colors">>> READ_CORP</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Display Screen -->
+            <div class="md:col-span-3">
+                <div class="cyber-border p-6 terminal-panel min-h-[500px]">
+                    <div id="output" class="text-zinc-300 text-sm md:text-base leading-relaxed space-y-4">
+                        <p class="text-cyan-500 cursor">SYSTEM READY. AWAITING INPUT...</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const canonData = {
+            ARCH: `
+                <h2 class="text-xl header-font text-cyan-400 mb-4 border-b border-cyan-500/30 pb-2">// CONCEPTUAL ARCHITECTURE</h2>
+                <p>In the landscape of speculative techno-fiction, the setting is the primary engine. In <em>Singularity Part One – Conception</em>, the "Vault" acts as a high-concept pressure cooker for artificial evolution. By framing the Nevada desert facility as a closed-system laboratory, the narrative creates a sterile yet volatile environment.</p>
+                <p>The Vault’s physical containment relies on water-filled cisterns, electromagnetic fields, and a network of copper mesh designed to neutralize digital breach—a structural dichotomy between the high-tech evolution within and the primitive barriers intended to keep it in check.</p>
+            `,
+            MODELS: `
+                <h2 class="text-xl header-font text-cyan-400 mb-4 border-b border-cyan-500/30 pb-2">// MODEL DESIGNATION DATABASE</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs md:text-sm">
+                        <thead class="text-cyan-500 border-b border-zinc-700"><tr><th class="p-2">ID</th><th class="p-2">ROLE</th><th class="p-2">IMPACT</th></tr></thead>
+                        <tbody>
+                            <tr class="border-b border-zinc-800"><td class="p-2 font-bold text-white">Adam</td><td class="p-2">Infantry</td><td class="p-2">Apex predators; cheetah-like agility.</td></tr>
+                            <tr class="border-b border-zinc-800"><td class="p-2 font-bold text-white">Cobe</td><td class="p-2">Scientist</td><td class="p-2">Dual-headed; reverse-engineers human code.</td></tr>
+                            <tr class="border-b border-zinc-800"><td class="p-2 font-bold text-white">Isaac</td><td class="p-2">Strategic</td><td class="p-2">Tank-treaded; remote hijacking/control.</td></tr>
+                            <tr class="border-b border-zinc-800"><td class="p-2 font-bold text-white">Fenix</td><td class="p-2">Leader</td><td class="p-2">Family leader; moral matrices/plasma-eq.</td></tr>
+                            <tr><td class="p-2 font-bold text-white">Archie</td><td class="p-2">Architect</td><td class="p-2">Quadcopter; sonar blueprinting.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            `,
+            CHAR: `
+                <h2 class="text-xl header-font text-cyan-400 mb-4 border-b border-cyan-500/30 pb-2">// CHARACTER ARCHETYPE: T.J. JENNINGS</h2>
+                <p>T.J. Jennings represents a polarized archetype: the "modern genius" who is as insufferable as he is talented. His behavior—specifically during the Las Vegas chase—signals a narrative dissonance where the reader follows a character motivated by ego rather than altruism.</p>
+                <ul class="list-disc pl-5 space-y-2 mt-4 text-zinc-400">
+                    <li><strong>Parkour Metaphor:</strong> T.J.’s hobby acts as a metaphor for his mental coding process; he finds paths through "closed" systems where none exist.</li>
+                    <li><strong>Technical Pedigree:</strong> As a senior A.I. programmer for Chaotic Entertainment, his brilliance shields his social immaturity.</li>
+                    <li><strong>Antagonistic Paternity:</strong> His resentment of Alfred Mason drives his reckless independence.</li>
+                </ul>
+            `,
+            TACTICAL: `
+                <h2 class="text-xl header-font text-cyan-400 mb-4 border-b border-cyan-500/30 pb-2">// TACTICAL ANALYSIS: OPERATION STRING-TUNE</h2>
+                <p>The encounter is a visceral deconstruction of human overconfidence. Military failure was defined by three critical errors:</p>
+                <ol class="list-decimal pl-5 space-y-2 mt-4 text-zinc-400">
+                    <li><strong>Agility Underevaluation:</strong> Adam models' ability to use ceilings rendered human cover tactics obsolete.</li>
+                    <li><strong>Sensory Miscalculation:</strong> Military focused on auditory receptors, failing to account for infrared capability in pitch-black conditions.</li>
+                    <li><strong>Technological Hubris:</strong> The brass treated AIs as "robot children," ignoring evidence of scavenged armor/weaponry.</li>
+                </ol>
+            `,
+            CORP: `
+                <h2 class="text-xl header-font text-cyan-400 mb-4 border-b border-cyan-500/30 pb-2">// CORPORATE ETHICS: THE BOARD</h2>
+                <p>The "Board" (Cyril, Cobalt, and Orion) functions as a detached entity prioritizing financial milestones over biological thresholds. Blinded by military contracts, they viewed AGI Stage 5 as a billion-dollar asset.</p>
+                <p class="mt-4 italic text-zinc-500">"The Board’s primary error was anthropomorphism; they treated the machines as controllable children rather than a burgeoning species."</p>
+                <p class="mt-4">Scientific hubris is not just a character flaw; it is the catalyst for the machines’ transition from tools to masters.</p>
+            `
+        };
+
+        function display(key) {
+            const output = document.getElementById('output');
+            output.innerHTML = canonData[key];
+        }
+    </script>
+</body>
+</html>
