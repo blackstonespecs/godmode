@@ -1,5 +1,62 @@
+<!doctype html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Game</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+      #play-audio-btn {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 6px;
+        border: 1px solid #333;
+        background: #fff;
+        cursor: pointer;
+        z-index: 9999;
+      }
+    </style>
+  </head>
   <body>
-    <embed src="hearme.mp3">
+    <!-- Attempt autoplay; fallback shows a button when browsers block autoplay -->
+    <audio id="bg-audio" src="hearme.mp3" preload="auto" autoplay playsinline></audio>
+
+    <script>
+      const audio = document.getElementById('bg-audio');
+
+      function showPlayButton() {
+        if (document.getElementById('play-audio-btn')) return;
+        const btn = document.createElement('button');
+        btn.id = 'play-audio-btn';
+        btn.textContent = 'Play audio';
+        btn.onclick = () => {
+          audio.play().then(() => btn.remove()).catch(() => {});
+        };
+        document.body.appendChild(btn);
+      }
+
+      function attemptPlay() {
+        // Some browsers require a user gesture. Try to play and show a button if it's blocked.
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // Playing successfully
+            const btn = document.getElementById('play-audio-btn');
+            if (btn) btn.remove();
+          }).catch(() => {
+            // Autoplay prevented
+            showPlayButton();
+          });
+        }
+      }
+
+      // Try on load, and retry on first user interaction (click/touch) which satisfies gesture requirement.
+      window.addEventListener('load', attemptPlay);
+      window.addEventListener('click', attemptPlay, { once: true });
+      window.addEventListener('touchstart', attemptPlay, { once: true });
+    </script>
   </body>
 </html>
