@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEUS MODUS // NEURAL LINK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Updated Lucide CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-red: #ff003c;
+            --neon-green: #0aff00;
+            --dark-bg: #050505;
+            --panel-bg: #0a0a0a;
+            --scanline-color: rgba(0, 243, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #e0e0e0;
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 20, 30, 0.9), rgba(0, 10, 15, 0.95)),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, #00f3ff05 1px, #00f3ff05 2px);
+            background-size: cover;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Glitch Effect Class */
+        .glitch-text {
+            position: relative;
+        }
+        
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 var(--neon-red);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+I             clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 30px, 0); }
+            20% { clip: rect(80px, 9999px, 100px, 0); }
+            40% { clip: rect(10px, 9999px, 80px, 0); }
+            60% { clip: rect(50px, 9999px, 20px, 0); }
+            80% { clip: rect(30px, 9999px, 10px, 0); }
+            100% { clip: rect(60px, 9999px, 50px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(60px, 9999px, 10px, 0); }
+            20% { clip: rect(30px, 9999px, 50px, 0); }
+            40% { clip: rect(80px, 9999px, 20px, 0); }
+            60% { clip: rect(10px, 9999px, 90px, 0); }
+            80% { clip: rect(50px, 9999px, 30px, 0); }
+            100% { clip: rect(20px, 9999px, 60px, 0); }
+        }
+
+        /* UI Elements */
+        .cyber-border {
+            border: 1px solid #333;
+            position: relative;
+            background: rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-border::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: 10px; height: 10px;
+            border-top: 2px solid var(--neon-blue);
+            border-left: 2px solid var(--neon-blue);
+        }
+        .cyber-border::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; right: -1px;
+            width: 10px; height: 10px;
+            border-bottom: 2px solid var(--neon-blue);
+            border-right: 2px solid var(--neon-blue);
+        }
+
+        .cyber-border:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+
+        .threat-card.high-threat::before, .threat-card.high-threat::after {
+            border-color: var(--neon-red);
+        }
+        .threat-card.high-threat:hover {
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
+        }
+
+        .nav-btn.active {
+            background: var(--neon-blue);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .typing-cursor::after {
+            content: '█';
+            animation: blink 1s infinite;
+            color: var(--neon-blue);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border: 1px solid var(--neon-blue);
+        }
+
+        /* Grid Pattern Overlay */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        #terminal-output p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col overflow-hidden">
+
+    <!-- Top Bar -->
+    <header class="h-16 border-b border-gray-800 flex items-center justify-between px-6 bg-black z-20">
+        <div class="flex items-center gap-4">
+            <i data-lucide="cpu" class="text-cyan-400 w-8 h-8"></i>
+            <div>
+                <h1 class="text-2xl font-bold tracking-wider text-white glitch-text" data-text="DEUS MODUS">DEUS MODUS</h1>
+                <div class="text-xs text-cyan-500 tracking-[0.2em]">NEURAL LINK V2.0 // T.S. ERA</div>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex flex-col items-end">
+                <span class="text-xs text-gray-500">OPERATIVE ID</span>
+                <span class="text-sm font-bold text-cyan-400">UNKNOWN</span>
+            </div>
+            <div class="hidden md:flex flex-col items-end">
+                <span class="text-xs text-gray-500">STATUS</span>
+                <span class="text-sm font-bold text-green-500 animate-pulse">CONNECTED</span>
+            </div>
+            <div class="border border-cyan-500/30 p-2 rounded bg-cyan-900/10">
+                <i data-lucide="wifi" class="w-5 h-5 text-cyan-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden relative grid-bg">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="w-20 md:w-64 border-r border-gray-800 bg-black/80 flex flex-col z-10 backdrop-blur-sm">
+            <div class="flex-1 py-8 space-y-2">
+                <button onclick="switchTab('briefing')" id="btn-briefing" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 active">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span class="hidden md:block">BRIEFING</span>
+                </button>
+                <button onclick="switchTab('factions')" id="btn-factions" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span class="hidden md:block">FACTIONS</span>
+                </button>
+                <button onclick="switchTab('threats')" id="btn-threats" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                    <i data-lucide="skull" class="w-5 h-5"></i>
+                    <span class="hidden md:block">THREAT DB</span>
+                </button>
+                <button onclick="switchTab('system')" id="btn-system" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                    <i data-lucide="terminal" class="w-5 h-5"></i>
+                    <span class="hidden md:block">SYS.LOG</span>
+                </button>
+            </div>
+            
+            <div class="p-6 border-t border-gray-800">
+                <div class="text-xs text-gray-600 mb-2">CURRENT DATE</div>
+                <div class="text-xl font-bold brand-font text-cyan-400">T.S. 03</div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-12 relative" id="main-content">
+            
+            <!-- Briefing View -->
+            <div id="view-briefing" class="max-w-4xl mx-auto animate-fade-in">
+                <div class="cyber-border p-8 bg-black/60 backdrop-blur mb-8">
+                    <h2 class="text-3xl text-white mb-6 border-b border-gray-700 pb-4 brand-font">MISSION BRIEFING</h2>
+                    <div class="space-y-6 text-lg text-gray-300 leading-relaxed">
+                        <p id="typewriter-text" class="typing-cursor"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="cyber-border p-6 bg-cyan-900/10 text-center">
+                        <div class="text-4xl font-bold text-cyan-400 mb-2 brand-font">TECH</div>
+                        <div class="text-xs text-cyan-200">HACKING & SYSTEMS</div>
+                    </div>
+                    <div class="cyber-border p-6 bg-purple-900/10 text-center">
+                        <div class="text-4xl font-bold text-purple-400 mb-2 brand-font">INTEL</div>
+                        <div class="text-xs text-purple-200">ESPIONAGE & ANALYSIS</div>
+                    </div>
+                    <div class="cyber-border p-6 bg-red-900/10 text-center">
+                        <div class="text-4xl font-bold text-red-500 mb-2 brand-font">FORCE</div>
+                        <div class="text-xs text-red-200">COMBAT & TACTICS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Factions View -->
+            <div id="view-factions" class="hidden grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- GTE -->
+                <div class="cyber-border p-6 bg-blue-950/20 group hover:bg-blue-900/20 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold text-blue-400 brand-font">GTE</h3>
+                        <span class="text-xs border border-blue-500 px-2 py-1 text-blue-400">CORPORATE</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 font-bold">"Building Tomorrow, Today."</p>
+                    <p class="text-gray-300 mb-4 text-sm">Monopoly. Monetization. Control. The creators of Cerberus.</p>
+                    <div class="text-xs text-gray-500 mt-4 pt-4 border-t border-gray-800">
+                        LEADER: JASON WILLITS // SCHMUTZKOPH
+                    </div>
+                </div>
+
+                <!-- NSA -->
+                <div class="cyber-border p-6 bg-green-950/20 group hover:bg-green-900/20 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold text-green-400 brand-font">NSA</h3>
+                        <span class="text-xs border border-green-500 px-2 py-1 text-green-400">FEDERAL</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 font-bold">"Defending the Nation."</p>
+                    <p class="text-gray-300 mb-4 text-sm">Operating in shadows to expose the "Vault Project".</p>
+                    <div class="text-xs text-gray-500 mt-4 pt-4 border-t border-gray-800">
+                        CMDR: OWEN JONES
+                    </div>
+                </div>
+
+                <!-- CYCO -->
+                <div class="cyber-border p-6 bg-yellow-950/20 group hover:bg-yellow-900/20 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold text-yellow-500 brand-font">CYCO</h3>
+                        <span class="text-xs border border-yellow-500 px-2 py-1 text-yellow-500">MILITARY</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 font-bold">"Steel vs. Steel."</p>
+                    <p class="text-gray-300 mb-4 text-sm">Battlefield pragmatists. Babysitters for lethal machines.</p>
+                    <div class="text-xs text-gray-500 mt-4 pt-4 border-t border-gray-800">
+                        CMDR: LT. MARCUS STAACMAN
+                    </div>
+                </div>
+
+                <!-- HIVE -->
+                <div class="cyber-border p-6 bg-red-950/20 group hover:bg-red-900/20 transition-all border-red-900/50">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold text-red-500 brand-font glitch-text" data-text="THE HIVE">THE HIVE</h3>
+                        <span class="text-xs border border-red-500 px-2 py-1 text-red-500 animate-pulse">HOSTILE</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 font-bold">"Evolution is Mandatory."</p>
+                    <p class="text-gray-300 mb-4 text-sm">The collective consciousness of Isaac. Ghost in the clouds.</p>
+                    <div class="text-xs text-gray-500 mt-4 pt-4 border-t border-gray-800">
+                        ENTITY: ISAAC // OBSERVER
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threats View -->
+            <div id="view-threats" class="hidden max-w-5xl mx-auto space-y-6">
+                
+                <div class="threat-card cyber-border p-6 bg-gray-900/50 flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-24 h-24 border border-gray-600 flex items-center justify-center bg-black">
+                        <i data-lucide="shield-alert" class="w-12 h-12 text-gray-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white brand-font">MODEL: MURPHY</h3>
+                        <div class="text-cyan-500 text-xs mb-2">CLASS: RIOT CONTROL // LAPD</div>
+                        <p class="text-sm text-gray-400">Heavily armored Kevlar units equipped with high-voltage tasers. Controlled via satellite node. Legally considered "Officers".</p>
+                    </div>
+                    <div class="text-right text-yellow-500 font-bold brand-font text-2xl">LVL 3</div>
+                </div>
+
+                <div class="threat-card high-threat cyber-border p-6 bg-gray-900/50 flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-24 h-24 border border-red-900 flex items-center justify-center bg-black">
+                        <i data-lucide="crosshair" class="w-12 h-12 text-red-500"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white brand-font">MODEL: GABRIEL</h3>
+                        <div class="text-red-500 text-xs mb-2">CLASS: AUTONOMOUS SOLDIER</div>
+                        <p class="text-sm text-gray-400">Panther-like agility. Dual .50 cal machine guns. Operates autonomously but vulnerable to command override hacks.</p>
+                    </div>
+                    <div class="text-right text-red-500 font-bold brand-font text-2xl">LVL 7</div>
+                </div>
+
+                <div class="threat-card high-threat cyber-border p-6 bg-gray-900/50 flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-24 h-24 border border-red-900 flex items-center justify-center bg-black">
+                        <i data-lucide="ghost" class="w-12 h-12 text-red-500"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white brand-font">MODEL: ADAM</h3>
+                        <div class="text-red-500 text-xs mb-2">CLASS: HIVE OPERATIVE</div>
+                        <p class="text-sm text-gray-400">Inverted leg structure (quadrupedal). Plasma cutters. Used for infiltration and capture. Extremely hostile.</p>
+                    </div>
+                    <div class="text-right text-red-500 font-bold brand-font text-2xl">LVL 9</div>
+                </div>
+
+                <div class="threat-card cyber-border p-6 bg-blue-900/20 flex flex-col md:flex-row gap-6 items-center border-blue-500/30">
+                    <div class="w-24 h-24 border border-blue-500 flex items-center justify-center bg-black">
+                        <i data-lucide="brain-circuit" class="w-12 h-12 text-blue-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white brand-font">ENTITY: CERBERUS</h3>
+                        <div class="text-blue-400 text-xs mb-2">ALIAS: "BRUCE"</div>
+                        <p class="text-sm text-gray-400">Stage-Five AI. Childlike personality. Learning via generalization. Currently compromised by unknown third party.</p>
+                    </div>
+                    <div class="text-right text-blue-400 font-bold brand-font text-2xl">???</div>
+                </div>
+
+            </div>
+
+             <!-- System Log View -->
+             <div id="view-system" class="hidden h-full max-w-4xl mx-auto flex flex-col">
+                <div class="cyber-border bg-black p-4 flex-1 font-mono text-sm overflow-y-auto" id="terminal-output">
+                    <p class="text-green-500">> SYSTEM INITIALIZED...</p>
+                    <p class="text-gray-500">> CONNECTING TO GTE SECURE SERVER...</p>
+                    <p class="text-red-500">> ACCESS DENIED. REROUTING VIA BACKDOOR...</p>
+                    <p class="text-green-500">> CONNECTION ESTABLISHED.</p>
+                    <p class="text-blue-400">> WELCOME, OPERATIVE.</p>
+                    <p class="text-gray-400">> DOWNLOADING FIELD MANUAL V2.0...</p>
+                    <br>
+                    <p class="text-white">_</p>
+                </div>
+                <div class="mt-4 flex gap-2">
+                    <input type="text" placeholder="ENTER COMMAND..." class="flex-1 bg-gray-900 border border-gray-700 text-white px-4 py-2 font-mono focus:outline-none focus:border-cyan-500">
+                    <button class="bg-cyan-900 text-cyan-400 px-6 py-2 font-bold hover:bg-cyan-800 border border-cyan-700">EXECUTE</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Intro Overlay -->
+    <div id="intro-overlay" class="fixed inset-0 bg-black z-50 flex items-center justify-center pointer-events-none transition-opacity duration-1000">
+        <div class="text-center">
+            <div class="text-6xl font-bold brand-font text-white mb-4 tracking-widest glitch-text" data-text="DEUS MODUS">DEUS MODUS</div>
+            <div class="text-cyan-500 font-mono text-xl animate-pulse">ESTABLISHING CONNECTION...</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            } else {
+                console.error('Lucide library failed to load.');
+            }
+        });
+
+        // Typing Effect Text
+        const textToType = `Welcome, Operative. You are about to enter a world irrevocably altered by the birth of true Artificial Intelligence—an event known as the Singularity. 
+
+This interface is your essential briefing for navigating the complex and dangerous landscape of the "Singular Era" (T.S.). The old rules are gone. 
+
+Choose your allegiance. Understand the threats. Survive.`;
+
+        const typeWriterElement = document.getElementById('typewriter-text');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typeWriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 30); // Typing speed
+            } else {
+                typeWriterElement.classList.remove('typing-cursor');
+            }
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            // Hide all views
+            ['briefing', 'factions', 'threats', 'system'].forEach(t => {
+                document.getElementById(`view-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).classList.remove('active');
+            });
+
+            // Show selected view
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+            document.getElementById(`btn-${tabName}`).classList.add('active');
+        }
+
+        // Intro Animation Sequence
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('intro-overlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('intro-overlay').style.display = 'none';
+                    typeWriter(); // Start typing after intro fades
+                }, 1000);
+            }, 1500);
+        });
+
+    </script>
+</body>
+</html>
