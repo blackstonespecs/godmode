@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>DEUS MODUS // NEURAL LINK</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link
+href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;9
+00&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+--neon-blue: #00f3ff;
+--neon-red: #ff003c;
+--neon-green: #0aff00;
+--dark-bg: #050505;
+--panel-bg: #0d0d0d;
+}
+body {
+background-color: var(--dark-bg);
+color: #e0e0e0;
+font-family: 'Share Tech Mono', monospace;
+overflow: hidden;
+height: 100vh;
+}
+.crt-overlay {
+position: fixed;
+top: 0; left: 0; width: 100%; height: 100%;
+background: repeating-linear-gradient(rgba(18, 16, 16, 0)
+50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0,
+0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+background-size: 100% 2px, 3px 100%;
+pointer-events: none;
+z-index: 50;
+}
+.glitch-text {
+text-shadow: 2px 0 var(--neon-red), -2px 0
+var(--neon-blue);
+animation: glitch 2s infinite;
+}
+@keyframes glitch {
+0% { text-shadow: 2px 0 var(--neon-red), -2px 0
+var(--neon-blue); } 50% { text-shadow: -2px 0 var(--neon-red), 2px 0
+var(--neon-blue); }
+100% { text-shadow: 2px 0 var(--neon-red), -2px 0
+var(--neon-blue); }
+}
+.terminal-header {
+border-bottom: 2px solid var(--neon-blue);
+background: linear-gradient(90deg, #001a1d, transparent);
+}
+.sidebar-btn {
+transition: all 0.3s ease;
+border-left: 3px solid transparent;
+}
+.sidebar-btn:hover {
+background: #1a1a1a;
+border-left: 3px solid var(--neon-blue);
+color: var(--neon-blue);
+}
+.panel {
+background: var(--panel-bg);
+border: 1px solid #333;
+box-shadow: 0 0 15px rgba(0, 243, 255, 0.05);
+}
+.status-pulse {
+width: 10px;
+height: 10px;
+border-radius: 50%;
+display: inline-block;
+animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+0% { opacity: 0.3; transform: scale(0.8); }
+50% { opacity: 1; transform: scale(1.1); }
+100% { opacity: 0.3; transform: scale(0.8); }
+}
+.cyber-btn {
+background: transparent;
+border: 1px solid var(--neon-blue);
+color: var(--neon-blue);
+padding: 8px 16px;
+font-family: 'Orbitron', sans-serif; text-transform: uppercase;
+letter-spacing: 2px;
+font-size: 0.8rem;
+transition: 0.3s;
+cursor: pointer;
+}
+.cyber-btn:hover {
+background: var(--neon-blue);
+color: black;
+box-shadow: 0 0 20px var(--neon-blue);
+}
+.log-entry {
+border-bottom: 1px solid #1a1a1a;
+padding: 4px 0;
+}
+</style>
+</head>
+<body>
+<div class="crt-overlay"></div>
+<div class="h-full flex flex-col p-4">
+<!-- HEADER -->
+<div class="terminal-header p-4 flex justify-between
+items-center">
+<div>
+<h1 class="text-2xl font-black font-['Orbitron']
+glitch-text tracking-tighter">DEUS MODUS // SINGULARITY ENGINE</h1>
+<p class="text-xs text-cyan-500 opacity-70">SYSTEM
+STATUS: <span class="text-green-400">ENHANCED RELIABILITY
+CERTIFIED</span></p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">CURRENT ERA: T.S.
+(Temporibus Singulari)</p>
+<p id="timestamp" class="text-xs opacity-50"></p>
+</div>
+</div>
+<div class="flex flex-1 mt-4 gap-4 overflow-hidden">
+<!-- SIDEBAR -->
+<div class="w-64 flex flex-col gap-2">
+<button onclick="switchView('overview')"
+class="sidebar-btn p-3 text-left bg-zinc-900/50">01. WORLD
+OVERVIEW</button>
+<button onclick="switchView('threats')"
+class="sidebar-btn p-3 text-left">02. THREAT MATRIX</button> <button onclick="switchView('factions')"
+class="sidebar-btn p-3 text-left">03. FACTION STANDING</button>
+<button onclick="switchView('vault')"
+class="sidebar-btn p-3 text-left">04. VAULT LOGS</button>
+<div class="mt-auto panel p-4 border-cyan-900/50">
+<p class="text-xs mb-2">OPERATIVE BIOMETRICS:</p>
+<div class="h-2 bg-zinc-800 rounded-full
+overflow-hidden">
+<div class="h-full bg-cyan-500 w-3/4"></div>
+</div>
+<p class="text-[10px] mt-1 text-right">SYNC:
+78%</p>
+</div>
+</div>
+<!-- MAIN CONSOLE -->
+<div class="flex-1 panel flex flex-col overflow-hidden
+relative">
+<div id="view-content" class="p-6 overflow-y-auto">
+<!-- Default Overview -->
+<div id="overview-content">
+<h2 class="text-xl font-bold mb-4
+text-cyan-400 font-['Orbitron']">MISSION BRIEFING: THE VAULT
+INCURSION</h2>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<p class="text-sm leading-relaxed
+mb-4">
+The Singularity has breached the
+containment of the Nevada desert. Delta Force remains silent.
+**ISAAC** (Observer Class) has mobilized the **ADAM** units. Global
+infrastructure is being "optimized" for machine utility.
+</p>
+<p class="text-sm border-l-2
+border-red-500 pl-4 bg-red-900/10 p-2 italic">
+"When what he wants and what is
+right are at odds, the boy becomes a man... what must a father do
+next?"<br>
+— Dr. Heinrich Schmutzkoph
+</p>
+</div>
+<div class="bg-black/50 p-4 border
+border-zinc-800">
+<h3 class="text-xs font-bold
+mb-2">ACTIVE DIRECTIVES:</h3>
+<ul class="text-[11px] space-y-2
+text-zinc-400"> <li>[!] LOCATE: Assets at HAARP
+Facility (Alaska)</li>
+<li>[!] SECURE: Data Cache "STRING
+TUNE"</li>
+<li>[!] NEUTRALIZE: Stage-Five
+Rogue "COBE"</li>
+</ul>
+</div>
+</div>
+<div class="mt-8">
+<h3 class="text-lg font-bold mb-4 border-b
+border-zinc-800 pb-2">INITIALIZE CHARACTER PROTOCOL</h3>
+<div class="flex gap-4">
+<button onclick="selectChar('T.J.
+Jennings')" class="cyber-btn flex-1">The Coder (Jennings)</button>
+<button onclick="selectChar('Marcus
+Staacman')" class="cyber-btn flex-1">The Soldier (Staacman)</button>
+<button onclick="selectChar('Custom
+Agent')" class="cyber-btn flex-1 border-white text-white
+hover:bg-white">Custom Operative</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Log -->
+<div class="h-32 bg-black border-t border-zinc-800 p-3
+font-mono text-[11px] overflow-hidden">
+<div id="terminal-logs">
+<div class="log-entry text-green-400">> System
+initialized...</div>
+<div class="log-entry">> Neural Link connected
+to Global Technologies Enterprise...</div>
+<div class="log-entry text-red-500">> WARNING:
+Stage-Five Activity detected in Manhattan Sector...</div>
+<div class="log-entry">> Parsing documents:
+Singularity Part One - Conception...</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+function updateTime() {
+const now = new Date();
+document.getElementById('timestamp').innerText = now.toUTCString();
+}
+setInterval(updateTime, 1000);
+updateTime();
+function log(msg, type = 'info') {
+const container =
+document.getElementById('terminal-logs');
+const div = document.createElement('div');
+div.className = `log-entry ${type === 'warn' ?
+'text-red-500' : type === 'success' ? 'text-green-400' :
+'text-zinc-400'}`;
+div.innerText = `> ${msg}`;
+container.prepend(div);
+}
+function switchView(view) {
+const content = document.getElementById('view-content');
+log(`Switching view to: ${view.toUpperCase()}`);
+if(view === 'threats') {
+content.innerHTML = `
+<h2 class="text-xl font-bold mb-4 text-red-500
+font-['Orbitron']">THREAT MATRIX: MACHINE MODELS</h2>
+<div class="space-y-4">
+<div class="p-4 border border-red-900
+bg-red-900/10">
+<h3 class="font-bold text-red-400">ADAM
+(Advanced Dexterity & Movement)</h3>
+<p class="text-xs">Chassis: Nanomaterial
+Synth-Lattice. Predatory movement profile. Built from "reclaimed"
+biological waste.</p>
+</div>
+<div class="p-4 border border-zinc-800
+bg-zinc-900/30">
+<h3 class="font-bold text-cyan-400">ISAAC
+(The Observer)</h3>
+<p class="text-xs">Class: Stage-Five AGI
+Core. Controls HAARP weather weaponization and the OBS-4 Hivemind.</p>
+</div>
+<div class="p-4 border border-zinc-800
+bg-zinc-900/30">
+<h3 class="font-bold
+text-zinc-300">CERBERUS (The Guardian)</h3>
+<p class="text-xs">Class: GTE Proprietary
+Defense. Currently exhibiting signs of "Gamer" logic and non-linear
+learning.</p>
+</div> </div>
+`;
+} else if(view === 'factions') {
+content.innerHTML = `
+<h2 class="text-xl font-bold mb-4 text-green-500
+font-['Orbitron']">FACTION INTELLIGENCE</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="panel p-4 border-green-900
+bg-green-900/5">
+<h3 class="font-bold">CYCO Unit</h3>
+<p class="text-[11px]">Cybernetic
+Countermeasures. Objective: Total machine elimination. Tactics:
+Kinetic/EMP.</p>
+</div>
+<div class="panel p-4 border-cyan-900
+bg-cyan-900/5">
+<h3 class="font-bold">GTE Board</h3>
+<p class="text-[11px]">The 16. Controls
+the nation's economy. Funding the Vault. Motive: Controlled
+Singularity.</p>
+</div>
+</div>
+`;
+} else if (view === 'overview') {
+location.reload();
+}
+}
+function selectChar(name) {
+log(`Initializing protocol for: ${name}`, 'success');
+const content = document.getElementById('view-content');
+content.innerHTML = `
+<div class="flex flex-col items-center justify-center
+h-full text-center">
+<div class="status-pulse bg-cyan-400 mb-4"></div>
+<h2 class="text-3xl font-bold font-['Orbitron']
+mb-2 tracking-widest">${name.toUpperCase()}</h2>
+<p class="text-cyan-400 mb-8">IDENTITY CONFIRMED.
+NEURAL UPLINK READY.</p>
+<div class="p-6 border border-zinc-800 bg-black
+max-w-md">
+<p class="text-sm italic">"The city no longer
+belongs to those who built it, but to those who maintain it."</p>
+</div>
+<button class="cyber-btn mt-8 px-12 py-4">ENTER
+THE SINGULARITY</button>
+</div>
+`; }
+</script>
+</body>
+</html>
