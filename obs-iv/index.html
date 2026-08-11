@@ -490,7 +490,33 @@
             }
         });
 
-        terminalTarget.addEventListener('click', () => terminalInput.focus());
+ terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const val = this.value.trim().toUpperCase();
+                if (val) {
+                    printToTerminal(val, true);
+                    
+                    if (database[val]) {
+                        printToTerminal(database[val]);
+                    } else if (val === 'CLEAR') {
+                        terminalOutput.innerHTML = '';
+                        printToTerminal([">> TERMINAL CLEARED."]);
+                    } else if (val.startsWith('ENCRYPT ')) {
+                        const str = val.replace('ENCRYPT ', '');
+                        const encrypted = str.split('').map(c => String.fromCharCode(c.charCodeAt(0) + 1)).join('');
+                        printToTerminal([`RESULT: ${encrypted}`, "NOTE: Primitive substitution cipher applied."]);
+                    } else {
+                        printToTerminal([
+                            `ERR: COMMAND '${val}' NOT RECOGNIZED.`,
+                            "SYNTAX ERROR OR INSUFFICIENT CLEARANCE."
+                        ]);
+                    }
+                    this.value = '';
+                }
+            }
+        });
+
+         terminalTarget.addEventListener('click', () => terminalInput.focus());
         document.querySelector('.terminal-window').addEventListener('click', () => terminalInput.focus());
         
         // Initial Focus
