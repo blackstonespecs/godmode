@@ -3,38 +3,292 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta
-    name="description"
-    content="DEUS MODUS // An educational fiction experiment concerning artificial intelligence, alignment, surveillance, institutional power and the human condition."
-  >
-
-  <title>DEUS MODUS // SINGULAR EDITION</title>
+  <meta name="description" content="Deus Modus — a digital experiment at the intersection of technology, philosophy and human potential.">
+  <title>DEUS MODUS — Digital Systems for a New Human Era</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
-  <div class="scanlines"></div>
   <div class="noise"></div>
 
-  <!-- BOOT SCREEN -->
-  <div class="boot-screen" id="bootScreen">
-    <div class="boot-inner">
-      <div class="boot-symbol">◉</div>
-      <p>DEUS MODUS ARCHIVE</p>
-      <p>INITIALIZING SINGULAR EDITION...</p>
-      <div class="boot-progress">
-        <span id="bootProgress"></span>
+  <header class="site-header">
+    <a class="logo" href="#top" aria-label="Deus Modus home">
+      <span class="logo-mark">◉</span>
+      <span>DEUS<br>MODUS</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#manifesto">Manifesto</a>
+      <a href="#system">System</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">
+          <span class="status-dot"></span>
+          SYSTEM ONLINE / 2026
+        </p>
+
+        <h1>
+          <span>BUILDING</span>
+          <span>THE <em>MODUS</em></span>
+          <span>OF TOMORROW.</span>
+        </h1>
+
+        <p class="hero-description">
+          Deus Modus is an evolving digital project exploring
+          technology, consciousness, culture and the systems
+          shaping the next human era.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#manifesto">
+            Explore the project
+            <span>↗</span>
+          </a>
+
+          <a class="button button-ghost" href="#projects">
+            View systems
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-orbit" aria-hidden="true">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="orbit orbit-three"></div>
+        <div class="orbit-core">
+          <span>DM</span>
+        </div>
+      </div>
+
+      <div class="hero-meta">
+        <span>43° 39′ N</span>
+        <span>79° 23′ W</span>
+        <span class="scroll-indicator">SCROLL ↓</span>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto section" id="manifesto">
+      <div class="section-label">
+        <span>01</span>
+        <span>MANIFESTO</span>
+      </div>
+
+      <div class="manifesto-content">
+        <p class="large-copy">
+          We are entering an era where the boundary between
+          <span>human intention</span> and machine capability
+          becomes increasingly fluid.
+        </p>
+
+        <p class="body-copy">
+          Deus Modus investigates what happens when we stop treating
+          technology as a collection of tools and start thinking about
+          it as an environment. A new operating system for ideas,
+          organizations and human possibility.
+        </p>
+
+        <div class="manifesto-line">
+          <span>01</span>
+          <div></div>
+          <span>QUESTION EVERYTHING</span>
+        </div>
+
+        <div class="manifesto-line">
+          <span>02</span>
+          <div></div>
+          <span>DESIGN THE SYSTEM</span>
+        </div>
+
+        <div class="manifesto-line">
+          <span>03</span>
+          <div></div>
+          <span>EXPAND THE POSSIBLE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM -->
+    <section class="system section" id="system">
+      <div class="section-label">
+        <span>02</span>
+        <span>THE SYSTEM</span>
+      </div>
+
+      <div class="system-heading">
+        <h2>
+          One project.<br>
+          <span>Multiple dimensions.</span>
+        </h2>
+
+        <p>
+          A modular framework for exploring the intersection of
+          technology, philosophy, design and collective intelligence.
+        </p>
+      </div>
+
+      <div class="system-grid">
+        <article class="system-card">
+          <span class="card-number">01</span>
+          <div class="card-icon">⌬</div>
+          <h3>THINK</h3>
+          <p>
+            Research, philosophy and mental models for navigating
+            complexity.
+          </p>
+          <a href="#projects">Explore →</a>
+        </article>
+
+        <article class="system-card featured">
+          <span class="card-number">02</span>
+          <div class="card-icon">◈</div>
+          <h3>BUILD</h3>
+          <p>
+            Digital experiments turning abstract ideas into
+            functioning systems.
+          </p>
+          <a href="#projects">Explore →</a>
+        </article>
+
+        <article class="system-card">
+          <span class="card-number">03</span>
+          <div class="card-icon">∞</div>
+          <h3>EVOLVE</h3>
+          <p>
+            Iteration as a philosophy. Every system remains open
+            to transformation.
+          </p>
+          <a href="#projects">Explore →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects section" id="projects">
+      <div class="section-label">
+        <span>03</span>
+        <span>PROJECTS</span>
+      </div>
+
+      <div class="projects-heading">
+        <h2>Current<br><i>experiments.</i></h2>
+        <span>INDEX / 004</span>
+      </div>
+
+      <div class="project-list">
+        <a class="project-row" href="#contact">
+          <div class="project-index">001</div>
+          <div class="project-info">
+            <h3>THE HUMAN PROTOCOL</h3>
+            <p>Research / Philosophy / 2026</p>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+
+        <a class="project-row" href="#contact">
+          <div class="project-index">002</div>
+          <div class="project-info">
+            <h3>COGNITIVE ARCHITECTURE</h3>
+            <p>Systems / AI / Intelligence</p>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+
+        <a class="project-row" href="#contact">
+          <div class="project-index">003</div>
+          <div class="project-info">
+            <h3>POST-DIGITAL SOCIETY</h3>
+            <p>Culture / Futures / Research</p>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+
+        <a class="project-row" href="#contact">
+          <div class="project-index">004</div>
+          <div class="project-info">
+            <h3>DEUS MODUS OS</h3>
+            <p>Interface / Experiment / Ongoing</p>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="statement">
+      <div class="statement-symbol">✳</div>
+      <blockquote>
+        "The future isn't something we enter.
+        <span>It's something we construct.</span>"
+      </blockquote>
+      <p>— DEUS MODUS / PRINCIPLE 001</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact section" id="contact">
+      <div class="section-label">
+        <span>04</span>
+        <span>CONTACT</span>
+      </div>
+
+      <div class="contact-content">
+        <p class="eyebrow">OPEN CHANNEL</p>
+
+        <h2>
+          Have an idea<br>
+          <i>worth building?</i>
+        </h2>
+
+        <a class="contact-email" href="mailto:hello@deusmodus.example">
+          hello@deusmodus.example
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>DEUS MODUS</strong>
+      <span>AN OPEN SYSTEM FOR THE FUTURE</span>
+    </div>
+
+    <div class="footer-right">
+      <span>© 2026 DEUS MODUS</span>
+      <a href="#top">BACK TO TOP ↑</a>
+    </div>
+  </footer>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="#manifesto">Manifesto</a>
+    <a href="#system">System</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+                                     </html>        <span id="bootProgress"></span>
       </div>
       <small id="bootStatus">ESTABLISHING SECURE SESSION</small>
     </div>
