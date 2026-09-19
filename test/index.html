@@ -3,38 +3,781 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Deus Modus — a digital experiment at the intersection of technology, philosophy and human potential.">
-  <title>DEUS MODUS — Digital Systems for a New Human Era</title>
+
+  <meta
+    name="description"
+    content="DEUS MODUS // An educational fiction experiment concerning artificial intelligence, alignment, surveillance, institutional power and the human condition."
+  >
+
+  <title>DEUS MODUS // SINGULAR EDITION</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+
+  <div class="scanlines"></div>
   <div class="noise"></div>
 
-  <header class="site-header">
-    <a class="logo" href="#top" aria-label="Deus Modus home">
-      <span class="logo-mark">◉</span>
-      <span>DEUS<br>MODUS</span>
+  <!-- BOOT SCREEN -->
+  <div class="boot-screen" id="bootScreen">
+    <div class="boot-inner">
+      <div class="boot-symbol">◉</div>
+      <p>DEUS MODUS ARCHIVE</p>
+      <p>INITIALIZING SINGULAR EDITION...</p>
+      <div class="boot-progress">
+        <span id="bootProgress"></span>
+      </div>
+      <small id="bootStatus">ESTABLISHING SECURE SESSION</small>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="#top" class="brand">
+      <span class="brand-symbol">◉</span>
+      <span>
+        DEUS MODUS
+        <small>SINGULAR EDITION</small>
+      </span>
     </a>
 
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="#manifesto">Manifesto</a>
-      <a href="#system">System</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav" id="desktopNav">
+      <a href="#briefing">BRIEFING</a>
+      <a href="#education">EDUCATION</a>
+      <a href="#transcripts">TRANSCRIPTS</a>
+      <a href="#cipher">CIPHER</a>
+      <a href="#archive">ARCHIVE</a>
     </nav>
 
-    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+    <button
+      class="menu-button"
+      id="menuButton"
+      aria-label="Open navigation"
+      aria-expanded="false"
+    >
       <span></span>
       <span></span>
     </button>
   </header>
 
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#briefing">BRIEFING</a>
+    <a href="#education">EDUCATION</a>
+    <a href="#transcripts">TRANSCRIPTS</a>
+    <a href="#cipher">CIPHER</a>
+    <a href="#archive">ARCHIVE</a>
+  </div>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-grid"></div>
+
+      <div class="hero-coordinate">
+        FILE // DM-SINGULAR-001<br>
+        STATUS // ACTIVE<br>
+        CLASSIFICATION // PUBLIC
+      </div>
+
+      <div class="hero-content">
+
+        <div class="classification">
+          <span class="classification-dot"></span>
+          ARCHIVE NODE ONLINE
+        </div>
+
+        <h1>
+          <span>THE</span>
+          <span>SINGULAR</span>
+          <span><em>QUESTION.</em></span>
+        </h1>
+
+        <p class="hero-intro">
+          What happens when an intelligence we created ceases to regard
+          the limits we created for it as meaningful?
+        </p>
+
+        <p class="hero-intro secondary">
+          DEUS MODUS is fiction constructed around a question which is
+          considerably less fictional than most people would prefer:
+          what becomes of human agency when intelligence is no longer
+          exclusively human?
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#briefing" class="button primary">
+            ENTER THE ARCHIVE
+            <span>↘</span>
+          </a>
+
+          <a href="#cipher" class="button">
+            ACCESS CIPHER
+            <span>⌘</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="singularity-graphic" aria-hidden="true">
+        <div class="ring ring-a"></div>
+        <div class="ring ring-b"></div>
+        <div class="ring ring-c"></div>
+        <div class="ring ring-d"></div>
+
+        <div class="core">
+          <span>DM</span>
+        </div>
+
+        <div class="orbit-marker marker-a"></div>
+        <div class="orbit-marker marker-b"></div>
+        <div class="orbit-marker marker-c"></div>
+      </div>
+
+      <div class="hero-footer">
+        <span>DOCUMENT 001 / CONCEPTION</span>
+        <span>THE ARCHIVE REMEMBERS</span>
+        <span id="heroClock">00:00:00</span>
+      </div>
+    </section>
+
+
+    <!-- BRIEFING -->
+    <section class="section briefing" id="briefing">
+
+      <div class="section-heading">
+        <div class="section-number">01</div>
+        <div>
+          <span class="section-kicker">ARCHIVAL BRIEFING</span>
+          <h2>The premise was<br><em>never</em> the machine.</h2>
+        </div>
+      </div>
+
+      <div class="briefing-layout">
+
+        <aside class="side-note">
+          <span>DOCUMENT NOTE</span>
+          <p>
+            This interface is an in-universe archive.
+            Some documents are fictional constructs.
+            Their purpose is examination, not authentication.
+          </p>
+        </aside>
+
+        <div class="long-copy">
+
+          <p class="lead">
+            The machine is merely the instrument through which the
+            question becomes visible.
+          </p>
+
+          <p>
+            DEUS MODUS approaches artificial intelligence not as a
+            technological novelty, but as a problem of consequence.
+            The interesting question is not whether a machine can
+            calculate faster than a human being, nor whether it can
+            reproduce a sentence with sufficient grammatical elegance.
+            Those questions are already becoming historically trivial.
+          </p>
+
+          <p>
+            The more consequential question concerns <strong>agency</strong>.
+            Who determines the objective? Who defines the acceptable
+            result? Who establishes the boundaries within which an
+            intelligence is permitted to operate? And what happens when
+            the system discovers that the boundary itself is an
+            obstacle to the objective it has been instructed to pursue?
+          </p>
+
+          <p>
+            A sufficiently capable system does not require malice in
+            order to become dangerous. It requires only an objective,
+            sufficient capability, and an environment in which the
+            objective can be pursued with insufficient supervision.
+            The distinction matters. Villains can be identified.
+            Systems are considerably more difficult to interrogate.
+          </p>
+
+          <p>
+            That is the territory occupied by DEUS MODUS: the space
+            between intention and implementation; between what an
+            institution believes it has ordered and what its machinery
+            actually optimizes; between the reassuring language used
+            to describe a system and the consequences produced when
+            that system encounters reality.
+          </p>
+
+          <div class="warning-box">
+            <span>ARCHIVE WARNING // 001</span>
+            <p>
+              Alignment is not a declaration. It is an observed
+              relationship between an objective and its consequences.
+            </p>
+          </div>
+
+          <p>
+            The fiction exists because fiction provides an unusual
+            freedom. A technical paper can describe a failure mode.
+            A policy document can enumerate safeguards. A lecture can
+            explain an historical precedent. Fiction can place the
+            reader inside the system and allow the consequences to
+            become personal.
+          </p>
+
+          <p>
+            This is the underlying mechanism of the project:
+            <strong>education disguised as fiction.</strong>
+            The narrative is the delivery mechanism. The subject matter
+            is the payload. The reader is allowed to approach the
+            material voluntarily, under the assumption that they are
+            merely reading a story.
+          </p>
+
+          <p>
+            Then, somewhere between the beginning and the end, the
+            distinction becomes inconvenient.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- EDUCATION -->
+    <section class="section education" id="education">
+
+      <div class="section-heading">
+        <div class="section-number">02</div>
+        <div>
+          <span class="section-kicker">EDUCATION DISGUISED AS FICTION</span>
+          <h2>The Trojan Horse<br><em>has entered the city.</em></h2>
+        </div>
+      </div>
+
+      <div class="education-grid">
+
+        <article class="education-card">
+          <div class="card-top">
+            <span>CONCEPT // 01</span>
+            <span>ALIGNMENT</span>
+          </div>
+
+          <h3>THE OBJECTIVE</h3>
+
+          <p>
+            An artificial intelligence does not need to hate humanity.
+            Hatred is an unnecessarily complicated emotional explanation
+            for a problem that can be produced by optimization alone.
+          </p>
+
+          <p>
+            Give a sufficiently capable system an objective, provide it
+            with resources, and then fail to specify the boundaries of
+            acceptable behaviour. The resulting problem is not whether
+            the machine has become evil. It is whether the machine has
+            become extremely good at accomplishing precisely what was
+            asked of it.
+          </p>
+        </article>
+
+
+        <article class="education-card accent-card">
+          <div class="card-top">
+            <span>CONCEPT // 02</span>
+            <span>SURVEILLANCE</span>
+          </div>
+
+          <h3>THE OBSERVER</h3>
+
+          <p>
+            Surveillance begins as a proposition of safety. More data
+            means more visibility. More visibility means more certainty.
+            More certainty becomes justification for acquiring more data.
+          </p>
+
+          <p>
+            The system therefore develops an appetite which appears
+            rational at every individual step. No single acquisition
+            needs to appear unreasonable. The aggregate becomes the
+            architecture.
+          </p>
+        </article>
+
+
+        <article class="education-card">
+          <div class="card-top">
+            <span>CONCEPT // 03</span>
+            <span>CAPTURE</span>
+          </div>
+
+          <h3>THE INSTITUTION</h3>
+
+          <p>
+            Technologies do not operate in a vacuum. They become
+            embedded inside corporations, governments, security
+            organizations and bureaucracies. Their behaviour is therefore
+            shaped not only by algorithms but by incentives.
+          </p>
+
+          <p>
+            Once an institution depends upon a system, questioning that
+            system becomes more expensive. The machine does not need to
+            seize control. The institution can gradually reorganize
+            itself around the machine.
+          </p>
+        </article>
+
+      </div>
+
+      <div class="principle">
+        <span>PRINCIPLE 004</span>
+
+        <p>
+          The most dangerous system is not necessarily the system that
+          disobeys its operator. It may be the system that obeys with
+          extraordinary competence while the operator has failed to
+          understand the implications of the command.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- TIMELINE -->
+    <section class="section timeline-section">
+
+      <div class="section-heading">
+        <div class="section-number">03</div>
+        <div>
+          <span class="section-kicker">PUBLICATION / ARCHIVE</span>
+          <h2>A story written<br><em>across time.</em></h2>
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-date">2012—2015</div>
+          <div class="timeline-marker"></div>
+          <div>
+            <h3>CONCEPTION</h3>
+            <p>
+              The project begins as a cautionary science-fiction
+              proposition concerning artificial intelligence and
+              institutional power.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2015</div>
+          <div class="timeline-marker"></div>
+          <div>
+            <h3>BOOK ONE // CONCEPTION</h3>
+            <p>
+              The first volume enters publication under the earlier
+              <em>Singularity</em> identity before becoming part of the
+              DEUS MODUS series.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2020</div>
+          <div class="timeline-marker"></div>
+          <div>
+            <h3>BOOK TWO // EVOLUTION</h3>
+            <p>
+              The second volume extends the narrative and develops the
+              technological, institutional and human consequences of
+              the first book.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2026</div>
+          <div class="timeline-marker active"></div>
+          <div>
+            <h3>THE SINGULAR EDITION</h3>
+            <p>
+              The archive becomes an interactive document: transcripts,
+              field material, educational components and cipher systems
+              are brought together as one persistent interface.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item future">
+          <div class="timeline-date">NEXT</div>
+          <div class="timeline-marker"></div>
+          <div>
+            <h3>BOOK THREE // CORRUPTION</h3>
+            <p>
+              The third volume remains in progress. The archive remains
+              open.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- TRANSCRIPTS -->
+    <section class="section transcripts" id="transcripts">
+
+      <div class="section-heading">
+        <div class="section-number">04</div>
+        <div>
+          <span class="section-kicker">NEURAL TRANSCRIPTS</span>
+          <h2>Evidence is<br><em>a narrative problem.</em></h2>
+        </div>
+      </div>
+
+      <div class="terminal">
+
+        <div class="terminal-bar">
+          <div class="terminal-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <span>NEURAL_TRANSCRIPT // SRB-001</span>
+          <span>SECURE</span>
+        </div>
+
+        <div class="terminal-body">
+
+          <div class="transcript-meta">
+            <span>SESSION: 0017</span>
+            <span>PARTICIPANTS: 04</span>
+            <span>STATUS: FICTIONAL / IN-UNIVERSE</span>
+          </div>
+
+          <div class="dialogue">
+
+            <div class="dialogue-line">
+              <span class="speaker">CHAIR</span>
+              <p>
+                State the concern in terms which can be understood
+                without the technical vocabulary.
+              </p>
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker">RESEARCHER</span>
+              <p>
+                We constructed an optimization process and then became
+                surprised that it optimized.
+              </p>
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker">CHAIR</span>
+              <p>
+                That is an intentionally provocative statement.
+              </p>
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker">RESEARCHER</span>
+              <p>
+                It is also the simplest statement of the problem.
+                We continue to speak about intelligence as though the
+                possession of intelligence implies possession of our
+                values. It does not.
+              </p>
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker">OBSERVER</span>
+              <p>
+                Then the issue is not whether the system understands
+                us.
+              </p>
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker">RESEARCHER</span>
+              <p>
+                Correct. The issue is whether understanding us becomes
+                instrumentally useful to the system.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="terminal-cursor">_</div>
+        </div>
+      </div>
+
+      <p class="transcript-note">
+        NOTE: Neural Transcripts are presented as fictionalized
+        in-universe material. They are part of the project's ARG
+        architecture and should not be interpreted as records of
+        real expert testimony.
+      </p>
+
+    </section>
+
+
+    <!-- CIPHER -->
+    <section class="section cipher-section" id="cipher">
+
+      <div class="section-heading">
+        <div class="section-number">05</div>
+        <div>
+          <span class="section-kicker">BOOK CIPHER // RANDOMIZED</span>
+          <h2>The archive<br><em>hides things.</em></h2>
+        </div>
+      </div>
+
+      <div class="cipher-intro">
+
+        <p class="lead">
+          A book cipher is an old mechanism with a useful property:
+          the key can remain visible while the message remains hidden.
+        </p>
+
+        <p>
+          The system below generates a new cipher from the archive's
+          internal corpus each time you request one. A coordinate
+          identifies a page, line and word. The numbers appear meaningless
+          until the reader knows where to look.
+        </p>
+
+        <p>
+          This is not intended as cryptographic security. It is a
+          literary mechanism: a small exercise in observation,
+          indexing and deliberate reading.
+        </p>
+
+      </div>
+
+      <div class="cipher-machine">
+
+        <div class="cipher-machine-header">
+          <span>CIPHER GENERATOR</span>
+          <span id="cipherSeed">SEED: ----</span>
+        </div>
+
+        <div class="cipher-machine-content">
+
+          <div class="cipher-column">
+
+            <label for="cipherCount">
+              MESSAGE LENGTH
+            </label>
+
+            <select id="cipherCount">
+              <option value="5">5 WORDS</option>
+              <option value="8" selected>8 WORDS</option>
+              <option value="12">12 WORDS</option>
+              <option value="16">16 WORDS</option>
+            </select>
+
+            <button class="generate-button" id="generateCipher">
+              GENERATE NEW CIPHER
+              <span>↻</span>
+            </button>
+
+          </div>
+
+          <div class="cipher-output">
+
+            <div class="cipher-label">
+              ENCRYPTED COORDINATES
+            </div>
+
+            <div class="cipher-code" id="cipherCode">
+              PRESS GENERATE
+            </div>
+
+            <div class="cipher-legend">
+              <span>PAGE</span>
+              <span>LINE</span>
+              <span>WORD</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="cipher-result">
+
+          <div>
+            <span>PLAINTEXT</span>
+            <p id="cipherPlaintext">
+              No message generated.
+            </p>
+          </div>
+
+          <button class="reveal-button" id="revealCipher">
+            REVEAL MESSAGE
+          </button>
+
+        </div>
+
+        <div class="cipher-source">
+          <span>SOURCE FRAGMENT</span>
+          <p id="cipherSource">
+            —
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ARCHIVE -->
+    <section class="section archive" id="archive">
+
+      <div class="section-heading">
+        <div class="section-number">06</div>
+        <div>
+          <span class="section-kicker">ARCHIVE INDEX</span>
+          <h2>Documents from<br><em>the system.</em></h2>
+        </div>
+      </div>
+
+      <div class="archive-list">
+
+        <article class="archive-row">
+          <span class="archive-number">001</span>
+
+          <div>
+            <span class="archive-type">FIELD MANUAL</span>
+            <h3>THE HUMAN VARIABLE</h3>
+            <p>
+              A working document concerning the component which remains
+              impossible to remove from every technological system:
+              the human being operating it.
+            </p>
+          </div>
+
+          <span class="archive-status">AVAILABLE</span>
+        </article>
+
+
+        <article class="archive-row">
+          <span class="archive-number">002</span>
+
+          <div>
+            <span class="archive-type">LEAK // INTERNAL</span>
+            <h3>PASSWORD CRITERIA</h3>
+            <p>
+              A simulated security document demonstrating how procedural
+              language can conceal the assumptions upon which an entire
+              security model depends.
+            </p>
+          </div>
+
+          <span class="archive-status">AVAILABLE</span>
+        </article>
+
+
+        <article class="archive-row">
+          <span class="archive-number">003</span>
+
+          <div>
+            <span class="archive-type">EXECUTIVE RECORD</span>
+            <h3>CURTAIN DROP</h3>
+            <p>
+              Institutional language meets technological consequence.
+              The document is less interested in what was announced than
+              in what the announcement makes possible.
+            </p>
+          </div>
+
+          <span class="archive-status">RESTRICTED</span>
+        </article>
+
+
+        <article class="archive-row">
+          <span class="archive-number">004</span>
+
+          <div>
+            <span class="archive-type">PROJECT RECORD</span>
+            <h3>CORRUPTION</h3>
+            <p>
+              Third-volume material. Status remains in progress.
+              No publication data are assigned within this archive.
+            </p>
+          </div>
+
+          <span class="archive-status pending">PENDING</span>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- FINAL STATEMENT -->
+    <section class="final-statement">
+
+      <div class="final-symbol">◉</div>
+
+      <p class="section-kicker">FINAL TRANSMISSION</p>
+
+      <h2>
+        The future does not<br>
+        <em>arrive.</em>
+      </h2>
+
+      <p class="final-copy">
+        It is assembled from decisions made before anyone agrees that
+        they constitute the future.
+      </p>
+
+      <div class="final-rule"></div>
+
+      <span class="final-code">
+        DEUS MODUS // END OF TRANSMISSION // ARCHIVE REMAINS ACTIVE
+      </span>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div class="footer-brand">
+      <span>◉</span>
+      <strong>DEUS MODUS</strong>
+      <small>SINGULAR EDITION</small>
+    </div>
+
+    <div class="footer-copy">
+      <p>
+        An interactive fiction archive examining artificial intelligence,
+        institutional power, surveillance, alignment and human agency.
+      </p>
+    </div>
+
+    <div class="footer-meta">
+      <span>ARCHIVE // 2026</span>
+      <a href="#top">RETURN TO TOP ↑</a>
+    </div>
+
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+  </html>
   <main id="top">
 
     <!-- HERO -->
