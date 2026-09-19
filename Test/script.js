@@ -1,40 +1,118 @@
 "use strict";
 
-/*
- * DEUS MODUS // SINGULAR EDITION
- *
- * Interactive archive layer.
- *
- * Features:
- *  - Boot sequence
- *  - Mobile navigation
- *  - Archive clock
- *  - Scroll reveal
- *  - Orbital cursor interaction
- *  - Randomized book cipher generator
- *  - Cipher plaintext reveal
- */
-
 document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const mobileLinks = document.querySelectorAll(".mobile-menu a");
 
-  /* --------------------------------
-     BOOT SEQUENCE
-  -------------------------------- */
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("open");
 
-  const bootScreen = document.getElementById("bootScreen");
-  const bootProgress = document.getElementById("bootProgress");
-  const bootStatus = document.getElementById("bootStatus");
+      menuToggle.classList.toggle("active", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+      document.body.style.overflow = isOpen ? "hidden" : "";
+    });
 
-  const bootMessages = [
-    "ESTABLISHING SECURE SESSION",
-    "VERIFYING ARCHIVE INTEGRITY",
-    "LOADING NEURAL TRANSCRIPTS",
-    "INDEXING FIELD MATERIAL",
-    "INITIALIZING CIPHER ENGINE",
-    "SESSION AUTHORIZED"
-  ];
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        menuToggle.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        mobileMenu.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      });
+    });
+  }
 
-  let progress = 0;
+  /*
+   * Scroll reveal
+   */
+  const revealTargets = document.querySelectorAll(
+    ".section-label, .large-copy, .body-copy, .manifesto-line, " +
+    ".system-card, .projects-heading, .project-row, .statement, .contact-content"
+  );
+
+  revealTargets.forEach((element) => {
+    element.classList.add("reveal");
+  });
+
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px"
+    }
+  );
+
+  revealTargets.forEach((element) => {
+    revealObserver.observe(element);
+  });
+
+  /*
+   * Subtle cursor-driven parallax on the orbital graphic.
+   */
+  const hero = document.querySelector(".hero");
+  const orbit = document.querySelector(".hero-orbit");
+
+  if (hero && orbit && window.matchMedia("(pointer: fine)").matches) {
+    hero.addEventListener("mousemove", (event) => {
+      const rect = hero.getBoundingClientRect();
+
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+      orbit.style.transform =
+        `translate(${x * 16}px, calc(-50% + ${y * 16}px))`;
+    });
+
+    hero.addEventListener("mouseleave", () => {
+      orbit.style.transform = "translate(0, -50%)";
+    });
+  }
+
+  /*
+   * Dynamic system timestamp.
+   */
+  const status = document.querySelector(".hero .eyebrow");
+
+  if (status) {
+    const updateStatus = () => {
+      const now = new Date();
+
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+
+      status.innerHTML = `
+        <span class="status-dot"></span>
+        SYSTEM ONLINE / ${year}.${month}.${day}
+      `;
+    };
+
+    updateStatus();
+  }
+
+  /*
+   * Prevent broken placeholder project links from jumping unexpectedly.
+   * The rows remain interactive and route to the contact section.
+   */
+  document.querySelectorAll(".project-row").forEach((project) => {
+    project.addEventListener("mouseenter", () => {
+      project.querySelector(".project-arrow").textContent = "↗";
+    });
+  });
+});  let progress = 0;
   let messageIndex = 0;
 
   const bootTimer = setInterval(() => {
