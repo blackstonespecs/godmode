@@ -92,7 +92,7 @@ https://api.github.com/repos/blackstonespecs/godmode/contents/shorts
                 
                 // Filter for .mp4 files with "tj" prefix
                 videos = data
-                    .filter(file => file.name.toLowerCase().startsWith('nsa') && file.name.toLowerCase().endsWith('.mp4'))
+                    .filter(file => (file.name.toLowerCase().startsWith('nsa') || file.name.toLowerCase().startsWith('cyco')) && file.name.toLowerCase().endsWith('.mp4'))
                     .map(file => file.download_url)
                     .sort();
 
