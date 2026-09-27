@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Shorts Viewer — Topical Subjects</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; margin: 24px; background:#f7f7f8; color:#111; }
+    .container { max-width:980px; margin:0 auto; }
+    h1 { margin:0 0 12px 0; font-size:20px; }
+    .controls { display:flex; gap:12px; align-items:center; margin-bottom:14px; flex-wrap:wrap; }
+    select, button { padding:8px 10px; font-size:14px; }
+    .viewer { display:flex; gap:18px; align-items:flex-start; }
+    video { width:640px; max-width:100%; background:#000; border-radius:8px; box-shadow:0 6px 18px rgba(16,24,40,0.08); }
+    .playlist { flex:1; min-width:220px; max-height:480px; overflow:auto; background:white; border-radius:8px; padding:10px; box-shadow:0 6px 18px rgba(16,24,40,0.04); }
+    .item { display:flex; justify-content:space-between; gap:8px; padding:8px; border-radius:6px; cursor:pointer; align-items:center; }
+    .item:hover { background:#f1f5f9; }
+    .item .name { font-size:14px; }
+    .item button { padding:6px 8px; font-size:13px; }
+    .meta { font-size:12px; color:#555; }
+    .small { font-size:13px; color:#444; margin-top:8px; }
+    footer { margin-top:18px; color:#666; font-size:13px; }
+    @media (max-width: 760px) {
+      .viewer { display:block; }
+      video { width:100%; }
+      .playlist { margin-top:16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Shorts Viewer — Select a Topical Subject</h1>
+
+    <div class="controls">
+      <label for="topic">TOPICAL SUBJECT:</label>
+      <select id="topic" aria-label="Topical subject selector">
+        <option value="ISAAC">ISAAC</option>
+        <option value="NSA">NSA</option>
+        <option value="GTE">GTE</option>
+      </select>
+
+      <button id="play-first">Play First</button>
+      <button id="shuffle">Shuffle</button>
+    </div>
+
+    <div class="viewer">
+      <video id="player" controls preload="metadata">
+        <source id="player-source" src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="playlist" id="playlist" aria-live="polite">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <div class="small">
+      Tip: click a title in the playlist to load and play. Double-click the title to open the raw file in a new tab.
+    </div>
+
+    <footer>
+      Files loaded from: https://github.com/blackstonespecs/godmode/tree/main/shorts
+    </footer>
+  </div>
+
+  <script>
+    const baseRaw = 'https://raw.githubusercontent.com/blackstonespecs/godmode/main/shorts/';
+
+    const topics = {
+      "ISAAC": [
+        "black_box.mp4",
+        "cerebrate.mp4",
+        "detroit.mp4",
+        "tanner.mp4",
+        "adam_cgy.mp4"
+      ],
+      "NSA": [
+        "cyco_dc.mp4",
+        "nsa_gte.mp4",
+        "nsa_isaac.mp4"
+      ],
+      "GTE": [
+        "gte_lore.mp4",
+        "schmutzkoph_mo.mp4"
+      ]
+    };
+
+    const topicSelect = document.getElementById('topic');
+    const playlistEl = document.getElementById('playlist');
+    const player = document.getElementById('player');
+    const playerSource = document.getElementById('player-source');
+    const playFirstBtn = document.getElementById('play-first');
+    const shuffleBtn = document.getElementById('shuffle');
+
+    function populatePlaylist(topic) {
+      playlistEl.innerHTML = '';
+      const list = topics[topic] || [];
+      if (list.length === 0) {
+        playlistEl.innerHTML = '<div class="meta">No videos found for this topic.</div>';
+        return;
+      }
+
+      list.forEach((fn) => {
+        const url = baseRaw + encodeURIComponent(fn);
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.tabIndex = 0;
+
+        const name = document.createElement('div');
+        name.className = 'name';
+        name.textContent = fn;
+
+        const actions = document.createElement('div');
+        actions.style.display = 'flex';
+        actions.style.gap = '8px';
+        actions.style.alignItems = 'center';
+
+        const playBtn = document.createElement('button');
+        playBtn.textContent = 'Play';
+        playBtn.addEventListener('click', (e) => { e.stopPropagation(); loadAndPlay(url); });
+
+        const openBtn = document.createElement('button');
+        openBtn.textContent = 'Open';
+        openBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(url, '_blank'); });
+
+        actions.appendChild(playBtn);
+        actions.appendChild(openBtn);
+        item.appendChild(name);
+        item.appendChild(actions);
+
+        item.addEventListener('click', () => loadAndPlay(url));
+        item.addEventListener('dblclick', () => window.open(url, '_blank'));
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadAndPlay(url); }
+        });
+
+        playlistEl.appendChild(item);
+      });
+    }
+
+    function loadAndPlay(url) {
+      if (!url) return;
+      player.pause();
+      playerSource.src = url;
+      player.load();
+      player.play().catch(() => { /* browser may block autoplay */ });
+      highlightCurrent(url);
+    }
+
+    function highlightCurrent(url) {
+      const items = playlistEl.querySelectorAll('.item');
+      items.forEach(it => {
+        it.style.background = '';
+        const name = it.querySelector('.name')?.textContent || '';
+        const itemUrl = baseRaw + encodeURIComponent(name);
+        if (itemUrl === url) it.style.background = '#eef2ff';
+      });
+    }
+
+    playFirstBtn.addEventListener('click', () => {
+      const topic = topicSelect.value;
+      const list = topics[topic] || [];
+      if (list.length) loadAndPlay(baseRaw + encodeURIComponent(list[0]));
+    });
+
+    shuffleBtn.addEventListener('click', () => {
+      const topic = topicSelect.value;
+      const list = (topics[topic] || []).slice();
+      if (!list.length) return;
+      for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+      }
+      topics[topic] = list;
+      populatePlaylist(topic);
+      loadAndPlay(baseRaw + encodeURIComponent(list[0]));
+    });
+
+    topicSelect.addEventListener('change', () => populatePlaylist(topicSelect.value));
+
+    (function init() {
+      if (!topics[topicSelect.value]) {
+        topicSelect.value = Object.keys(topics)[0];
+      }
+      populatePlaylist(topicSelect.value);
+    })();
+
+    player.addEventListener('ended', () => {
+      const items = Array.from(playlistEl.querySelectorAll('.item'));
+      if (!items.length) return;
+      const currentSrc = playerSource.src;
+      const idx = items.findIndex(it => {
+        const name = it.querySelector('.name')?.textContent || '';
+        return baseRaw + encodeURIComponent(name) === currentSrc;
+      });
+      const nextIdx = (idx >= 0 && idx + 1 < items.length) ? idx + 1 : -1;
+      if (nextIdx >= 0) {
+        const nextName = items[nextIdx].querySelector('.name').textContent;
+        loadAndPlay(baseRaw + encodeURIComponent(nextName));
+      }
+    });
+  </script>
+</body>
+</html>
