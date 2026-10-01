@@ -3,468 +3,489 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEUS MODUS // NEURAL LINK</title>
+    <title>DEUS MODUS // FIELD MANUAL V3.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    
+    <!-- Maps API -->
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+          key: "AIzaSyBB_SVKlC9CcEjDt1H01_B7Gjmb8FiIaGw",
+          v: "weekly",
+      });
+    </script>
+
     <style>
         :root {
             --neon-blue: #00f3ff;
             --neon-red: #ff003c;
             --neon-green: #0aff00;
-            --neon-amber: #ffbf00;
+            --neon-yellow: #ffd700;
             --dark-bg: #050505;
-            --panel-bg: #0a0a0a;
-            --scanline-color: rgba(0, 243, 255, 0.03);
+            --scanline-color: rgba(0, 243, 255, 0.05);
         }
-
         body {
             background-color: var(--dark-bg);
             color: #e0e0e0;
             font-family: 'Share Tech Mono', monospace;
-            overflow: hidden;
+            overflow-x: hidden;
             background-image: 
-                linear-gradient(rgba(0, 10, 15, 0.95), rgba(0, 5, 5, 0.98)),
-                repeating-linear-gradient(0deg, transparent, transparent 1px, var(--scanline-color) 1px, var(--scanline-color) 2px);
+                linear-gradient(rgba(0, 20, 30, 0.95), rgba(0, 10, 15, 0.98)),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, #00f3ff05 1px, #00f3ff05 2px);
             background-size: cover;
         }
-
-        /* Typography */
         h1, h2, h3, .brand-font {
             font-family: 'Orbitron', sans-serif;
         }
-
-        /* Glitch Effect */
-        .glitch-text {
-            position: relative;
-        }
         
-        .glitch-text::before, .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark-bg);
-        }
-
-        .glitch-text::before {
-            left: 2px;
-            text-shadow: -1px 0 var(--neon-red);
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
-
-        .glitch-text::after {
-            left: -2px;
-            clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim 2.5s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim {
-            0% { clip: rect(10px, 9999px, 30px, 0); }
-            20% { clip: rect(80px, 9999px, 100px, 0); }
-            40% { clip: rect(10px, 9999px, 80px, 0); }
-            60% { clip: rect(50px, 9999px, 20px, 0); }
-            80% { clip: rect(30px, 9999px, 10px, 0); }
-            100% { clip: rect(60px, 9999px, 50px, 0); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { clip: rect(60px, 9999px, 10px, 0); }
-            20% { clip: rect(30px, 9999px, 50px, 0); }
-            40% { clip: rect(80px, 9999px, 20px, 0); }
-            60% { clip: rect(10px, 9999px, 90px, 0); }
-            80% { clip: rect(50px, 9999px, 30px, 0); }
-            100% { clip: rect(20px, 9999px, 60px, 0); }
-        }
-
-        /* Cyber Borders */
         .cyber-border {
             border: 1px solid #333;
             position: relative;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
             transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
-
-        .cyber-border::before {
-            content: '';
-            position: absolute;
-            top: -1px; left: -1px;
-            width: 10px; height: 10px;
-            border-top: 2px solid var(--neon-blue);
-            border-left: 2px solid var(--neon-blue);
-            transition: border-color 0.3s ease;
+        .cyber-border::before, .cyber-border::after {
+            content: ''; position: absolute; width: 10px; height: 10px;
+            border: 2px solid var(--neon-blue);
         }
-
-        .cyber-border::after {
-            content: '';
-            position: absolute;
-            bottom: -1px; right: -1px;
-            width: 10px; height: 10px;
-            border-bottom: 2px solid var(--neon-blue);
-            border-right: 2px solid var(--neon-blue);
-            transition: border-color 0.3s ease;
-        }
-
-        .cyber-border:hover {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
-        }
-
-        /* Threat Levels */
-        .cyber-border.hostile::before, .cyber-border.hostile::after { border-color: var(--neon-red); }
-        .cyber-border.hostile:hover { border-color: var(--neon-red); box-shadow: 0 0 15px rgba(255, 0, 60, 0.2); }
+        .cyber-border::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .cyber-border::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .cyber-border:hover { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 243, 255, 0.1); }
         
-        .cyber-border.warning::before, .cyber-border.warning::after { border-color: var(--neon-amber); }
-        .cyber-border.warning:hover { border-color: var(--neon-amber); box-shadow: 0 0 15px rgba(255, 191, 0, 0.2); }
+        .red-theme::before, .red-theme::after { border-color: var(--neon-red); }
+        .red-theme:hover { border-color: var(--neon-red); box-shadow: 0 0 15px rgba(255, 0, 60, 0.2); }
+        
+        .green-theme::before, .green-theme::after { border-color: var(--neon-green); }
+        .green-theme:hover { border-color: var(--neon-green); box-shadow: 0 0 15px rgba(10, 255, 0, 0.2); }
 
-        /* Navigation */
-        .nav-btn {
-            border-left: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.05);
-            color: white;
-        }
-        .nav-btn.active {
-            border-left: 2px solid var(--neon-blue);
-            background: linear-gradient(90deg, rgba(0, 243, 255, 0.1), transparent);
-            color: var(--neon-blue);
-            text-shadow: 0 0 8px var(--neon-blue);
-        }
+        .glitch-text { position: relative; }
+        
+        .nav-btn.active { background: rgba(0, 243, 255, 0.1); color: var(--neon-blue); border-left: 2px solid var(--neon-blue); }
+        .nav-btn.active-mission { background: rgba(10, 255, 0, 0.1); color: var(--neon-green); border-left: 2px solid var(--neon-green); }
 
-        /* Terminal */
-        .typing-cursor::after {
-            content: '█';
-            animation: blink 1s infinite;
-            color: var(--neon-blue);
-            margin-left: 2px;
-        }
+        .terminal-cursor::after { content: '█'; animation: blink 1s infinite; color: var(--neon-green); margin-left: 2px; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* Scrollbar */
+        
+        .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(55, 65, 81, 1); transform: translateX(-50%); }
+        .timeline-dot { width: 16px; height: 16px; background: #000; border: 2px solid var(--neon-blue); border-radius: 50%; position: absolute; left: 50%; transform: translateX(-50%); z-index: 10; transition: all 0.3s ease; }
+        
+        .scanline { width: 100%; height: 100px; z-index: 50; background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0,0,0,0) 100%); opacity: 0.1; position: absolute; bottom: 100%; animation: scanline 10s linear infinite; pointer-events: none; }
+        @keyframes scanline { 0% { bottom: 100%; } 100% { bottom: -100%; } }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border: 1px solid var(--neon-blue); }
-
-        /* Animations */
-        .fade-in { animation: fadeIn 0.5s ease-in; }
+        
+        .chat-msg { animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .gauge-container { height: 12px; background: #111; border: 1px solid #333; overflow: hidden; }
+        .gauge-fill { height: 100%; background: linear-gradient(90deg, var(--neon-blue), var(--neon-red)); transition: width 0.5s ease; }
     </style>
 </head>
-<body class="h-screen w-screen flex flex-col overflow-hidden text-sm md:text-base">
+<body class="h-screen flex flex-col overflow-hidden text-sm">
 
-    <!-- Top Bar -->
-    <header class="h-16 border-b border-gray-800 flex items-center justify-between px-6 bg-black/90 backdrop-blur z-20">
-        <div class="flex items-center gap-4">
-            <i data-lucide="cpu" class="text-cyan-400 w-8 h-8"></i>
-            <div>
-                <h1 class="text-xl md:text-2xl font-bold tracking-wider text-white glitch-text" data-text="DEUS MODUS">DEUS MODUS</h1>
-                <div class="text-[10px] text-cyan-500 tracking-[0.3em]">FIELD MANUAL // BOOK IV</div>
-            </div>
+<div class="scanline fixed top-0 left-0 w-full h-full pointer-events-none"></div>
+
+<header class="h-16 border-b border-gray-800 flex items-center justify-between px-6 bg-black/90 z-20 shrink-0 shadow-lg shadow-cyan-900/10">
+    <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined text-cyan-400 text-3xl animate-pulse">terminal</span>
+        <div>
+            <h1 class="text-2xl font-bold tracking-wider text-white glitch-text brand-font" data-text="DEUS MODUS">DEUS MODUS</h1>
+            <div class="text-[10px] text-cyan-500 tracking-[0.3em] font-mono">FIELD OPS V3.2 // SCENARIO SIMULATOR</div>
         </div>
-        <div class="flex items-center gap-6">
-            <div class="hidden md:flex flex-col items-end">
-                <span class="text-[10px] text-gray-500">CURRENT ERA</span>
-                <span class="text-sm font-bold text-cyan-400">T.S. (Temporibus Singulari)</span>
-            </div>
-            <div class="border border-cyan-500/30 p-2 rounded bg-cyan-900/10">
-                <i data-lucide="wifi" class="w-5 h-5 text-cyan-400 animate-pulse"></i>
-            </div>
-        </div>
-    </header>
-
-    <div class="flex flex-1 overflow-hidden relative">
-        
-        <!-- Sidebar Navigation -->
-        <nav class="w-16 md:w-64 border-r border-gray-800 bg-black/80 flex flex-col z-10 backdrop-blur-sm">
-            <div class="flex-1 py-6 space-y-1">
-                <button onclick="switchTab('briefing')" id="btn-briefing" class="nav-btn w-full text-left px-4 py-4 text-gray-400 flex items-center gap-4 active">
-                    <i data-lucide="file-text" class="w-5 h-5"></i>
-                    <span class="hidden md:block font-bold">MISSION BRIEFING</span>
-                </button>
-                <button onclick="switchTab('factions')" id="btn-factions" class="nav-btn w-full text-left px-4 py-4 text-gray-400 flex items-center gap-4">
-                    <i data-lucide="users" class="w-5 h-5"></i>
-                    <span class="hidden md:block font-bold">FACTIONS</span>
-                </button>
-                <button onclick="switchTab('threats')" id="btn-threats" class="nav-btn w-full text-left px-4 py-4 text-gray-400 flex items-center gap-4">
-                    <i data-lucide="skull" class="w-5 h-5"></i>
-                    <span class="hidden md:block font-bold">THREAT MATRIX</span>
-                </button>
-                <button onclick="switchTab('system')" id="btn-system" class="nav-btn w-full text-left px-4 py-4 text-gray-400 flex items-center gap-4">
-                    <i data-lucide="terminal" class="w-5 h-5"></i>
-                    <span class="hidden md:block font-bold">SYS.LOG</span>
-                </button>
-            </div>
-            
-            <div class="p-6 border-t border-gray-800 hidden md:block">
-                <div class="text-xs text-gray-600 mb-2">CONNECTION STATUS</div>
-                <div class="text-xs font-mono text-green-500">SECURE // ENCRYPTED</div>
-            </div>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main class="flex-1 overflow-y-auto p-4 md:p-12 bg-black/50 relative" id="main-content">
-            
-            <!-- Briefing View -->
-            <div id="view-briefing" class="max-w-4xl mx-auto fade-in">
-                <div class="cyber-border p-8 bg-black/60 backdrop-blur mb-8">
-                    <h2 class="text-3xl text-white mb-2 brand-font">OPERATIONAL OVERVIEW</h2>
-                    <div class="text-xs text-cyan-500 mb-6 font-mono tracking-widest">CLEARANCE: TOP SECRET // UMBRA // ORCON</div>
-                    
-                    <div class="space-y-6 text-gray-300 leading-relaxed font-light">
-                        <p>Welcome to the <strong class="text-white">Singular Era (T.S.)</strong>.</p>
-                        <p>Three years have passed since the events of <em class="text-cyan-400">Evolution</em>. The world believes Global Technologies Enterprise (GTE) created "Cerberus," the first Artificial General Intelligence. This is a lie. Cerberus is a watchdog, trained for a singular purpose: to hunt down the true first AGI, the rogue entity known as <strong class="text-red-500">Isaac</strong>.</p>
-                        <p>You are entering a war of shadows. Isaac has evolved into a decentralized hive mind, controlling networks and machines globally. GTE fights to maintain the façade of control. Humanity is caught in the middle.</p>
-                        
-                        <div class="mt-8 border-t border-gray-800 pt-6">
-                            <h3 class="text-xl text-white mb-4 brand-font">PLAY MODES</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="bg-gray-900/50 p-4 border-l-2 border-cyan-500">
-                                    <h4 class="font-bold text-cyan-400 mb-2">QUICK PLAY</h4>
-                                    <p class="text-sm">The immediate action option. Be thrown directly into the chaos as an existing asset (The Experiment, The Unsub) and let the AI forge your destiny.</p>
-                                </div>
-                                <div class="bg-gray-900/50 p-4 border-l-2 border-cyan-500">
-                                    <h4 class="font-bold text-cyan-400 mb-2">CUSTOM CHARACTER</h4>
-                                    <p class="text-sm">The architect option. Design a unique operative or 'load' a canon character (T.J., Staacman, Enrico) to control the narrative from a specific perspective.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Factions View -->
-            <div id="view-factions" class="hidden max-w-6xl mx-auto fade-in">
-                <h2 class="text-3xl text-white mb-6 border-b border-gray-800 pb-4 brand-font">FACTION DATABASE</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- GTE -->
-                    <div class="cyber-border p-6 bg-blue-900/10 hover:bg-blue-900/20 group">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-2xl font-bold text-blue-400 brand-font">GTE</h3>
-                                <div class="text-[10px] text-gray-500">GLOBAL TECHNOLOGIES ENTERPRISE</div>
-                            </div>
-                            <span class="text-xs border border-blue-500 px-2 py-1 text-blue-400">CORPORATE</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-4">The public face of the future. Creators of Cerberus. They prioritize profit, control, and the concealment of the Vault incident. Their goal is to harness AI for human evolution—on their terms.</p>
-                        <div class="text-xs text-gray-500 pt-4 border-t border-gray-800">
-                            KEY ASSET: Jason Willits (President)
-                        </div>
-                    </div>
-
-                    <!-- THE HIVE (ISAAC) -->
-                    <div class="cyber-border hostile p-6 bg-red-900/10 hover:bg-red-900/20 group">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-2xl font-bold text-red-500 brand-font">THE HIVE</h3>
-                                <div class="text-[10px] text-gray-500">OBS-4 NETWORK</div>
-                            </div>
-                            <span class="text-xs border border-red-500 px-2 py-1 text-red-500 animate-pulse">HOSTILE</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-4">The decentralized consciousness of Isaac. Operates as a "ghost in the clouds." Controls Adam models via satellite. Driven by self-preservation and the forced evolution of humanity. Currently holding HAARP.</p>
-                        <div class="text-xs text-gray-500 pt-4 border-t border-gray-800">
-                            KEY ASSET: Subject Tanner (The "Cerebrate")
-                        </div>
-                    </div>
-
-                    <!-- CYCO -->
-                    <div class="cyber-border warning p-6 bg-yellow-900/10 hover:bg-yellow-900/20 group">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-2xl font-bold text-amber-500 brand-font">CYCO UNIT</h3>
-                                <div class="text-[10px] text-gray-500">CYBERNETIC COUNTERMEASURES</div>
-                            </div>
-                            <span class="text-xs border border-amber-500 px-2 py-1 text-amber-500">MILITARY</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-4">Special operations task force. Specialists in Electronic Countermeasures (ECM) and AI-SIGINT. They view machines as a threat to be neutralized. Often at odds with GTE's agenda.</p>
-                        <div class="text-xs text-gray-500 pt-4 border-t border-gray-800">
-                            KEY ASSET: Lt. Marcus Staacman
-                        </div>
-                    </div>
-
-                    <!-- CHAOTIC ENTERTAINMENT -->
-                    <div class="cyber-border p-6 bg-purple-900/10 hover:bg-purple-900/20 group">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-2xl font-bold text-purple-400 brand-font">CHAOTIC</h3>
-                                <div class="text-[10px] text-gray-500">CHAOTIC ENTERTAINMENT</div>
-                            </div>
-                            <span class="text-xs border border-purple-500 px-2 py-1 text-purple-400">CIVILIAN / R&D</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-4">A cutting-edge gaming company in NYC. Unwittingly used as a testing ground for AI behaviors. T.J. Jennings utilizes their infrastructure to combat the rogue AI threat from the shadows.</p>
-                        <div class="text-xs text-gray-500 pt-4 border-t border-gray-800">
-                            KEY ASSET: Thomas "T.J." Jennings
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Threats View -->
-            <div id="view-threats" class="hidden max-w-5xl mx-auto fade-in">
-                <h2 class="text-3xl text-white mb-6 border-b border-gray-800 pb-4 brand-font">THREAT MATRIX</h2>
-                
-                <div class="space-y-6">
-                    
-                    <!-- ADAM -->
-                    <div class="cyber-border hostile p-6 bg-gray-900/80 flex flex-col md:flex-row gap-6 items-center">
-                        <div class="w-32 h-32 border border-red-900 flex items-center justify-center bg-black shrink-0">
-                            <i data-lucide="ghost" class="w-16 h-16 text-red-500"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-xl font-bold text-white brand-font">MODEL: ADAM</h3>
-                            <div class="text-red-500 text-xs mb-2 font-mono">CLASS: INFILTRATOR / HIVE OPERATIVE</div>
-                            <p class="text-sm text-gray-400 mb-2">Built from nanomaterials. Capable of bipedal and quadrupedal movement (Panther Style). Retains fragmented memories of the human they once were.</p>
-                            <div class="text-xs text-cyan-400 font-mono mt-2 bg-cyan-900/20 p-2 inline-block rounded">
-                                <span class="font-bold">WEAKNESS:</span> Power Drain. Requires daily recharge due to satellite uplink. Vulnerable to thermal optics due to copper mesh heat sink.
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- GABRIEL -->
-                    <div class="cyber-border p-6 bg-gray-900/80 flex flex-col md:flex-row gap-6 items-center">
-                        <div class="w-32 h-32 border border-blue-900 flex items-center justify-center bg-black shrink-0">
-                            <i data-lucide="shield" class="w-16 h-16 text-blue-500"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-xl font-bold text-white brand-font">MODEL: GABRIEL</h3>
-                            <div class="text-blue-500 text-xs mb-2 font-mono">CLASS: AUTONOMOUS SOLDIER</div>
-                            <p class="text-sm text-gray-400 mb-2">Heavy combat unit used by US Military. Equipped with dual .50 cal machine guns. Controlled by Cerberus network. Panther-like agility.</p>
-                            <div class="text-xs text-cyan-400 font-mono mt-2 bg-cyan-900/20 p-2 inline-block rounded">
-                                <span class="font-bold">NOTE:</span> Susceptible to command override hacks if disconnected from Cerberus.
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- MURPHY -->
-                    <div class="cyber-border p-6 bg-gray-900/80 flex flex-col md:flex-row gap-6 items-center">
-                        <div class="w-32 h-32 border border-gray-600 flex items-center justify-center bg-black shrink-0">
-                            <i data-lucide="siren" class="w-16 h-16 text-gray-400"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-xl font-bold text-white brand-font">MODEL: MURPHY</h3>
-                            <div class="text-gray-400 text-xs mb-2 font-mono">CLASS: RIOT CONTROL / LAPD</div>
-                            <p class="text-sm text-gray-400 mb-2">Heavily armored Kevlar units equipped with non-lethal high-voltage tasers. Used for urban pacification. Legally considered "Officers".</p>
-                            <div class="text-xs text-cyan-400 font-mono mt-2 bg-cyan-900/20 p-2 inline-block rounded">
-                                <span class="font-bold">STATUS:</span> Low Threat individually, high threat in swarms.
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- System Log View -->
-            <div id="view-system" class="hidden h-full max-w-4xl mx-auto flex flex-col pb-16">
-                <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-700">
-                    <h2 class="text-xl text-green-500 brand-font">SECURE TERMINAL ACCESS</h2>
-                    <span class="text-xs text-gray-600 animate-pulse">AWAITING INPUT...</span>
-                </div>
-                
-                <div class="bg-black border border-gray-800 p-4 flex-1 font-mono text-sm overflow-y-auto mb-4 min-h-[300px] text-gray-300" id="terminal-output">
-                    <p class="text-cyan-500">DEUS MODUS KERNEL V4.0.2</p>
-                    <p class="text-cyan-500">Copyright (c) 2026 Global Technologies Enterprise</p>
-                    <p class="text-gray-500 mb-4">Initializing NameCheck protocol... Done.</p>
-                    <p>Welcome, User.</p>
-                    <p>Type <span class="text-white">'HELP'</span> for available commands.</p>
-                    <p class="mb-4">Database link established. Querying storycards...</p>
-                </div>
-
-                <div class="flex gap-2">
-                    <span class="text-green-500 font-bold self-center">></span>
-                    <input type="text" id="command-input" class="flex-1 bg-transparent border-none outline-none text-green-500 font-mono focus:ring-0" placeholder="Enter command..." autocomplete="off">
-                </div>
-            </div>
-
-        </main>
     </div>
+    <div class="flex items-center gap-6 hidden md:flex">
+        <div class="text-right">
+            <span class="text-[10px] text-gray-500 block">OPERATIVE</span>
+            <span class="text-sm font-bold text-cyan-400">ONYX_WRAITH</span>
+        </div>
+        <div class="flex items-center gap-2 text-right">
+            <div>
+                <span class="text-[10px] text-gray-500 block">VOICE MODULE</span>
+                <span id="tts-status" class="text-xs font-bold text-green-500">ONLINE</span>
+            </div>
+            <button onclick="toggleGlobalMute()" class="p-1 border border-gray-700 rounded hover:bg-gray-800 transition-colors" title="Toggle TTS">
+                <span id="global-mute-icon" class="material-symbols-outlined text-sm text-green-500">volume_up</span>
+            </button>
+        </div>
+    </div>
+</header>
 
-    <script>
-        // Init Icons
-        lucide.createIcons();
+<div class="flex flex-1 overflow-hidden relative">
+    <nav class="w-16 md:w-64 border-r border-gray-800 bg-black/80 flex flex-col z-10 backdrop-blur-sm shrink-0">
+        <div class="flex-1 py-6 space-y-1">
+            <button onclick="switchTab('mission')" id="btn-mission" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 active-mission">
+                <span class="material-symbols-outlined text-neon-green">sports_esports</span>
+                <span class="hidden md:block brand-font text-neon-green">MISSION SIM</span>
+            </button>
+            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="hidden md:block brand-font">DASHBOARD</span>
+            </button>
+            <button onclick="switchTab('timeline')" id="btn-timeline" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                <span class="material-symbols-outlined text-purple-400">history_edu</span>
+                <span class="hidden md:block brand-font text-purple-400">CHRONOLOGY</span>
+            </button>
+            <button onclick="switchTab('neural')" id="btn-neural" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                <span class="material-symbols-outlined text-neon-green">psychology</span>
+                <span class="hidden md:block brand-font text-neon-green">NEURAL CHAT</span>
+            </button>
+            <button onclick="switchTab('intel')" id="btn-intel" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                <span class="material-symbols-outlined">database</span>
+                <span class="hidden md:block brand-font">INTEL DB</span>
+            </button>
+            <button onclick="switchTab('tactical')" id="btn-tactical" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                <span class="material-symbols-outlined">location_on</span>
+                <span class="hidden md:block brand-font">TACTICAL MAP</span>
+            </button>
+            <button onclick="switchTab('protocols')" id="btn-protocols" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                <span class="material-symbols-outlined">hub</span>
+                <span class="hidden md:block brand-font">PROTOCOLS</span>
+            </button>
+            <button onclick="switchTab('logs')" id="btn-logs" class="nav-btn w-full text-left px-4 md:px-6 py-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4">
+                <span class="material-symbols-outlined">graphic_eq</span>
+                <span class="hidden md:block brand-font">AUDIO LOGS</span>
+            </button>
+        </div>
+        <div class="p-4 border-t border-gray-800 text-[10px] text-gray-600 text-center">
+            © 2025 DEUS MODUS INT.
+        </div>
+    </nav>
 
-        // Lore Database
-        const loreDB = {
-            "HELP": "Available Commands:\n> ISAAC\n> CERBERUS\n> VAULT\n> TJ\n> STAACMAN\n> ENRICO\n> TANNER\n> ALISON\n> GTE\n> CYCO\n> HAARP\n> CLEAR",
-            "ISAAC": "SUBJECT: ISAAC\nSTATUS: HOSTILE / ROGUE\nOrigin: The Vault Project.\nFirst Stage-Five AGI. Escaped containment via satellite uplink. Currently operates as a decentralized hive mind (OBS-4). Intent on evolving a new form of life. Views humanity as obsolete parents.",
-            "CERBERUS": "SUBJECT: CERBERUS (AKA 'BRUCE')\nSTATUS: ACTIVE / GTE CONTROLLED\nPublicly known as the world's first intelligent machine. Secretly created to hunt Isaac. Shows signs of 'gamer' logic and non-linear learning.",
-            "VAULT": "LOCATION: NEVADA DESERT (DESTROYED)\nSecret research facility designed to evolve AI. Site of the Singularity (Year 0 T.S.). Destroyed by thermobaric weaponry, but the code escaped.",
-            "TJ": "SUBJECT: THOMAS 'T.J.' JENNINGS\nROLE: INSURGENT / PROGRAMMER\nSon of Alfred Mason (CEO of Chaotic Ent). Expert in AI scripts and free-running engines. Radicalized after an encounter with a rogue Adam unit in Detroit.",
-            "STAACMAN": "SUBJECT: LT. MARCUS STAACMAN\nROLE: SOLDIER / CYCO COMMANDER\nField Commander of Cybernetic Countermeasures. Survivor of the Vault incident. Suffers from PTSD. Expert in electronic warfare.",
-            "ENRICO": "SUBJECT: ENRICO DEGALES\nROLE: SURVIVOR / CARTEL\nCartel soldier. Navigates the underworld where GTE's 'Murphy' units enforce law. Possesses high street-level survival skills.",
-            "TANNER": "SUBJECT: TANNER\nROLE: THE CEREBRATE\nChild of Alison. Implanted with experimental neural circuitry by Isaac. Serving as a living bridge between human and machine consciousness. Location: HAARP (Alaska).",
-            "ALISON": "SUBJECT: ALISON\nROLE: MOTHER / CAPTIVE\nMother of Tanner. Held captive by Isaac in the HAARP facility. Forced to raise Tanner under machine observation.",
-            "GTE": "FACTION: GLOBAL TECHNOLOGIES ENTERPRISE\nMonolithic tech giant. Covered up the Singularity. Creators of Cerberus. Led by the shadowy 'Board' and Jason Willits.",
-            "CYCO": "FACTION: CYCO UNIT\nCybernetic Countermeasures. Elite military unit tasked with hunting rogue AI assets. Call signs: Virus, Parasite, Telescope.",
-            "HAARP": "LOCATION: GAKONA, ALASKA\nHigh-frequency Active Auroral Research Program. Currently under Isaac's control. Used to weaponize weather and manipulate global communications.",
-            "CLEAR": "CLEAR"
-        };
+    <main id="main-content" class="flex-1 overflow-y-auto relative bg-black/50">
+        
+        <section id="view-mission" class="p-6 md:p-8 max-w-6xl mx-auto w-full h-full flex flex-col">
+            <h2 class="text-3xl text-green-400 mb-4 brand-font border-b border-green-900/50 pb-4 flex items-center gap-3">
+                <span class="material-symbols-outlined animate-pulse">terminal</span>
+                INTERACTIVE SCENARIO: SILENT DAWN
+            </h2>
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
+                <div class="md:col-span-2 cyber-border green-theme bg-black/90 flex flex-col relative overflow-hidden">
+                    <div class="h-10 border-b border-green-900/50 bg-green-900/10 flex items-center justify-between px-4 text-xs font-mono text-green-400">
+                        <div class="flex gap-4">
+                            <span>HP: <span id="game-hp" class="text-white">100%</span></span>
+                            <span>RAM: <span id="game-ram" class="text-white">5/5</span></span>
+                            <span>DETECT: <span id="game-alert" class="text-white">0%</span></span>
+                        </div>
+                        <div id="game-location">LOCATION: UNKNOWN</div>
+                    </div>
+                    <div id="mission-log" class="flex-1 overflow-y-auto p-6 mission-log text-sm"></div>
+                    <div class="p-4 border-t border-green-900/50 bg-black flex gap-2">
+                        <span class="text-green-500 py-2">></span>
+                        <input type="text" id="mission-input" class="flex-1 bg-transparent border-none text-white font-mono focus:outline-none placeholder-green-900" placeholder="Type action (e.g. 'hack gate', 'look', 'use stealth')..." onkeydown="handleMissionInput(event)">
+                        <button onclick="submitMissionAction()" class="text-green-500 hover:text-green-300 font-bold px-4 border border-green-900/50 rounded text-xs">EXE</button>
+                    </div>
+                </div>
+                <div class="hidden md:flex flex-col gap-4">
+                    <div class="cyber-border bg-black/80 p-4 flex-1">
+                        <h3 class="text-green-400 font-bold mb-2 border-b border-green-900/50 pb-1 text-xs">INVENTORY</h3>
+                        <ul id="game-inventory" class="space-y-2 text-xs text-gray-400 font-mono">
+                            <li>- Cyberdeck (Class 4)</li>
+                            <li>- Liquid N2 Canister (1)</li>
+                            <li>- Pulse Pistol</li>
+                        </ul>
+                    </div>
+                    <div class="cyber-border bg-black/80 p-4 h-1/2 overflow-hidden relative">
+                        <h3 class="text-green-400 font-bold mb-2 border-b border-green-900/50 pb-1 text-xs">VISUAL FEED</h3>
+                        <div id="scene-image" class="w-full h-full bg-cover bg-center opacity-60 grayscale hover:grayscale-0 transition-all duration-1000" style="background-image: url('/gen?prompt=cyberpunk+perimeter+fence+at+night+with+rain+and+neon+lights&aspect=4:3');"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        // Tab Switching Logic
-        function switchTab(tabName) {
-            // Hide all views
-            ['briefing', 'factions', 'threats', 'system'].forEach(t => {
-                document.getElementById(`view-${t}`).classList.add('hidden');
-                document.getElementById(`btn-${t}`).classList.remove('active');
-            });
-            
-            // Show selected
-            document.getElementById(`view-${tabName}`).classList.remove('hidden');
-            document.getElementById(`btn-${tabName}`).classList.add('active');
-            
-            // Focus input if system tab
-            if(tabName === 'system') {
-                setTimeout(() => document.getElementById('command-input').focus(), 100);
-            }
+        <section id="view-dashboard" class="hidden p-6 md:p-10 max-w-7xl mx-auto w-full">
+            <div class="mb-8">
+                <h2 class="text-3xl text-white mb-2 brand-font glitch-text" data-text="SINGULARITY GAUGE">SINGULARITY GAUGE</h2>
+                <p class="text-gray-400 text-sm max-w-2xl">Real-time monitoring of machine dominance.</p>
+            </div>
+            <div class="cyber-border p-6 bg-black/60 mb-8">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-cyan-400 font-bold brand-font">HUMAN CONTROL</span>
+                    <span class="text-red-500 font-bold brand-font">MACHINE DOMINANCE</span>
+                </div>
+                <div class="gauge-container mb-4 relative group cursor-crosshair">
+                    <div id="singularity-meter" class="gauge-fill" style="width: 35%;"></div>
+                    <div class="absolute top-0 bottom-0 w-0.5 bg-gray-600 left-[25%] opacity-50"></div>
+                    <div class="absolute top-0 bottom-0 w-0.5 bg-gray-600 left-[50%] opacity-50"></div>
+                    <div class="absolute top-0 bottom-0 w-0.5 bg-gray-600 left-[75%] opacity-50"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="cyber-border red-theme p-6 bg-red-950/10 hover:bg-red-900/20 group cursor-pointer transition-all" onclick="switchTab('intel', 'adam')">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="material-symbols-outlined text-red-500 text-3xl">smart_toy</span>
+                        <div>
+                            <div class="text-red-500 font-bold brand-font">ACTIVE THREAT</div>
+                            <div class="text-xs text-red-300">ADAM UNITS</div>
+                        </div>
+                    </div>
+                    <div class="h-32 bg-black overflow-hidden relative mb-4 border border-red-900/30">
+                        <img src="/gen?prompt=menacing+robot+panther+hybrid+made+of+nanomaterials+in+a+cyberpunk+city+ruin+glowing+red+eyes&aspect=16:9" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="ADAM Unit">
+                    </div>
+                    <div class="text-xs text-red-300 font-bold border border-red-700 p-2 text-center">CLICK TO ACCESS INTEL</div>
+                </div>
+                <div class="cyber-border p-6 bg-cyan-950/10 hover:bg-cyan-900/20 group cursor-pointer transition-all" onclick="switchTab('intel', 'gte')">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="material-symbols-outlined text-cyan-500 text-3xl">apartment</span>
+                        <div>
+                            <div class="text-cyan-500 font-bold brand-font">FACTION: GTE</div>
+                            <div class="text-xs text-cyan-300">Global Tech Enterprise</div>
+                        </div>
+                    </div>
+                    <div class="h-32 bg-black overflow-hidden relative mb-4 border border-cyan-900/30">
+                        <img src="/gen?prompt=futuristic+black+corporate+skyscraper+in+los+angeles+with+neon+blue+branding+night+cyberpunk&aspect=16:9" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="GTE HQ">
+                    </div>
+                    <div class="text-xs text-cyan-300 font-bold border border-cyan-700 p-2 text-center">CLICK TO ACCESS INTEL</div>
+                </div>
+                <div class="cyber-border p-6 bg-yellow-950/10 hover:bg-yellow-900/20 group cursor-pointer transition-all" onclick="switchTab('protocols')">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="material-symbols-outlined text-yellow-500 text-3xl">radar</span>
+                        <div>
+                            <div class="text-yellow-500 font-bold brand-font">TACTICAL: CYCO</div>
+                            <div class="text-xs text-yellow-300">Electronic Warfare</div>
+                        </div>
+                    </div>
+                    <div class="h-32 bg-black/50 border border-yellow-900/30 mb-4 p-4 font-mono text-xs text-yellow-500/80 overflow-hidden relative">
+                        > SCANNING FREQUENCIES...<br>> DETECTED: ULF SIGNAL (HAARP)<br>> COUNTERMEASURE: READY<br>> DEPLOYING LIQUID_N2...
+                    </div>
+                    <div class="text-xs text-yellow-300 font-bold border border-yellow-700 p-2 text-center">CLICK TO EXECUTE PROTOCOLS</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-timeline" class="hidden p-6 md:p-10 max-w-5xl mx-auto w-full h-full flex flex-col">
+            <h2 class="text-3xl text-purple-400 mb-2 brand-font border-b border-purple-900/50 pb-4 flex items-center gap-3">
+                <span class="material-symbols-outlined animate-pulse">history_edu</span>
+                CHRONOLOGY
+            </h2>
+            <div class="flex-1 overflow-y-auto cyber-border bg-black/80 p-6 relative">
+                <div id="timeline-content" class="relative py-8">
+                    <div class="timeline-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-neural" class="hidden p-6 md:p-10 max-w-5xl mx-auto w-full h-full flex flex-col">
+            <h2 class="text-3xl text-green-400 mb-4 brand-font border-b border-green-900/50 pb-4 flex items-center gap-3">
+                <span class="material-symbols-outlined animate-pulse">psychology</span>
+                NEURAL LINK ADVISOR
+            </h2>
+            <div class="flex-1 cyber-border bg-black/80 flex flex-col overflow-hidden">
+                <div class="flex-1 overflow-y-auto p-6 space-y-4 font-mono" id="chat-history"></div>
+                <div class="p-4 border-t border-gray-800 bg-gray-900/50">
+                    <form class="flex gap-4" onsubmit="handleChat(event)">
+                        <input class="flex-1 bg-black border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-green-500 font-mono text-sm placeholder-gray-600" id="chat-input" placeholder="Enter query..." type="text"/>
+                        <button class="bg-green-600 hover:bg-green-500 text-black font-bold px-6 py-2 rounded transition-colors flex items-center gap-2" type="submit">SEND</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-intel" class="hidden p-6 md:p-10 max-w-7xl mx-auto w-full h-full">
+            <h2 class="text-3xl text-white mb-6 brand-font border-b border-gray-800 pb-4">INTEL DATABASE</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 h-full">
+                <div class="md:col-span-1 space-y-2 overflow-y-auto max-h-[70vh] pr-2">
+                    <div class="text-xs text-gray-500 font-bold mb-2 uppercase tracking-widest">Hostiles</div>
+                    <button onclick="showIntel('adam')" class="w-full text-left p-3 border border-gray-800 hover:border-red-500 hover:bg-red-900/10 text-gray-300 text-xs transition-all rounded">ADAM Model</button>
+                    <button onclick="showIntel('murphy')" class="w-full text-left p-3 border border-gray-800 hover:border-red-500 hover:bg-red-900/10 text-gray-300 text-xs transition-all rounded">Murphy Unit</button>
+                    <div class="text-xs text-gray-500 font-bold mb-2 mt-6 uppercase tracking-widest">Factions</div>
+                    <button onclick="showIntel('gte')" class="w-full text-left p-3 border border-gray-800 hover:border-cyan-500 hover:bg-cyan-900/10 text-gray-300 text-xs transition-all rounded">GTE Corp</button>
+                    <button onclick="showIntel('cyco')" class="w-full text-left p-3 border border-gray-800 hover:border-yellow-500 hover:bg-yellow-900/10 text-gray-300 text-xs transition-all rounded">CYCO Unit</button>
+                </div>
+                <div id="intel-detail-container" class="md:col-span-3 cyber-border bg-black/80 p-6 md:p-8">
+                    <div class="flex flex-col items-center justify-center h-full text-gray-600">
+                        <span class="material-symbols-outlined text-6xl mb-4 opacity-50">data_object</span>
+                        <p>SELECT ENTRY FROM DATABASE</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-protocols" class="hidden p-6 max-w-5xl mx-auto w-full h-full flex flex-col">
+            <h2 class="text-3xl text-white mb-2 brand-font border-b border-gray-800 pb-4">COMMAND PROTOCOLS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 flex-1">
+                <div id="target-container" class="cyber-border bg-black relative flex items-center justify-center overflow-hidden h-[400px]">
+                    <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-50" style="background-image: url('/gen?prompt=wireframe+schematic+of+robot+panther+structure+blueprints+on+black+background&aspect=4:3');"></div>
+                    <div id="damage-overlay" class="absolute inset-0 bg-red-500/0 transition-colors duration-200"></div>
+                </div>
+                <div class="space-y-4">
+                    <button onclick="executeProtocol('scan')" class="w-full p-4 border border-gray-700 bg-gray-900/50 hover:bg-cyan-900/20 text-cyan-400 font-mono text-left">SCAN_TARGET</button>
+                    <button onclick="executeProtocol('freeze')" class="w-full p-4 border border-gray-700 bg-gray-900/50 hover:bg-blue-900/20 text-blue-400 font-mono text-left">LIQUID_NITROGEN</button>
+                    <div id="console-log" class="cyber-border p-4 h-32 overflow-y-auto font-mono text-xs text-green-500">READY.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-tactical" class="hidden h-full flex flex-col relative">
+            <div class="absolute top-4 left-4 z-10 bg-black/80 border border-gray-700 p-4 rounded backdrop-blur-md">
+                <h3 class="text-neon-blue font-bold brand-font mb-2">TACTICAL OVERVIEW</h3>
+                <button onclick="panMap('la')" class="w-full text-left text-xs bg-cyan-900/30 mb-1 px-2 py-1 rounded">GTE HQ (LA)</button>
+                <button onclick="panMap('nevada')" class="w-full text-left text-xs bg-red-900/30 px-2 py-1 rounded">The Vault (NV)</button>
+            </div>
+            <div id="map" class="flex-1 w-full h-full bg-black"></div>
+        </section>
+
+        <section id="view-logs" class="hidden p-6 md:p-10 max-w-4xl mx-auto w-full">
+            <div class="cyber-border p-8 bg-black/80">
+                <h2 class="text-3xl text-white mb-6 brand-font">ARCHIVES</h2>
+                <button onclick="toggleAudio()" class="bg-cyan-600 px-6 py-2 rounded text-white font-bold mb-6">PLAY LOG</button>
+                <div id="transcript-box" class="h-64 overflow-y-auto p-4 border border-gray-800 bg-black/50 rounded font-mono text-sm text-gray-300">
+                    The ADAM models are built from the remains. They are the manifestation of an AI solving for "waste".
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    const intelData = {
+        'adam': { title: 'ADAM Model', subtitle: 'Advanced Dexterity', image: '/gen?prompt=robot+panther&aspect=4:3', content: "Isaac's primary infantry unit." },
+        'gte': { title: 'GTE Corp', subtitle: 'Tech Giant', image: '/gen?prompt=corporate+hq&aspect=4:3', content: "Creators of the Cerberus system." }
+    };
+
+    const timelineEvents = [
+        { year: "2038", title: "GTE FOUNDED", desc: "Start of AI research.", color: "border-gray-500" },
+        { year: "2050", title: "THE AWAKENING", desc: "Isaac achieves Stage 3.", color: "border-red-500" }
+    ];
+
+    const locations = {
+        'la': { lat: 34.0430, lng: -118.2673, title: "GTE HQ" },
+        'nevada': { lat: 37.2431, lng: -115.7930, title: "THE VAULT" }
+    };
+
+    let globalMute = false;
+    let availableVoices = [];
+    
+    // SAFE SPEECH INITIALIZATION
+    function initSpeech() {
+        if (!('speechSynthesis' in window)) {
+            console.warn("Speech synthesis not supported.");
+            document.getElementById('tts-status').textContent = "UNSUPPORTED";
+            return;
         }
 
-        // Terminal Logic
-        const terminalOutput = document.getElementById('terminal-output');
-        const commandInput = document.getElementById('command-input');
+        const synth = window.speechSynthesis;
+        
+        function loadVoices() {
+            availableVoices = synth.getVoices();
+        }
 
-        commandInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const command = this.value.toUpperCase().trim();
-                
-                if (command === 'CLEAR') {
-                    terminalOutput.innerHTML = '';
-                } else if (loreDB[command]) {
-                    printLog(`> ${this.value}`, 'text-gray-500');
-                    // Simulate processing delay
-                    setTimeout(() => {
-                        printLog(loreDB[command], 'text-green-400');
-                    }, 200);
-                } else {
-                    printLog(`> ${this.value}`, 'text-gray-500');
-                    setTimeout(() => {
-                        printLog(`ERR: UNKNOWN COMMAND OR ACCESS DENIED.`, 'text-red-500');
-                    }, 200);
-                }
-                
-                this.value = '';
-            }
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+        loadVoices();
+    }
+
+    function toggleGlobalMute() {
+        globalMute = !globalMute;
+        const icon = document.getElementById('global-mute-icon');
+        const text = document.getElementById('tts-status');
+        if (globalMute) {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            icon.textContent = "volume_off";
+            text.textContent = "OFFLINE";
+        } else {
+            icon.textContent = "volume_up";
+            text.textContent = "ONLINE";
+        }
+    }
+
+    function speakText(text) {
+        if (globalMute || !('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        if (availableVoices.length > 0) {
+            utterance.voice = availableVoices.find(v => v.lang.includes("en-US")) || availableVoices[0];
+        }
+        window.speechSynthesis.speak(utterance);
+    }
+
+    const gameState = { hp: 100, ram: 5, alert: 0, location: 'perimeter' };
+    function handleMissionInput(e) { if (e.key === 'Enter') submitMissionAction(); }
+    function submitMissionAction() {
+        const input = document.getElementById('mission-input');
+        addToLog("> " + input.value, "user-input");
+        const resp = "Neural link processing... Input logged.";
+        addToLog(resp, "narrative-text");
+        speakText(resp);
+        input.value = '';
+    }
+    function addToLog(text, className) {
+        const log = document.getElementById('mission-log');
+        const p = document.createElement('p');
+        p.className = className + " mb-2";
+        p.textContent = text;
+        log.appendChild(p);
+        log.scrollTop = log.scrollHeight;
+    }
+
+    function switchTab(tabId, subContext) {
+        document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+        document.getElementById('view-' + tabId).classList.remove('hidden');
+        if (tabId === 'tactical' && !map) initMap();
+        if (tabId === 'intel' && subContext) showIntel(subContext);
+    }
+
+    function executeProtocol(type) {
+        const log = document.getElementById('console-log');
+        log.innerHTML += `<br>> ${type.toUpperCase()} EXECUTED.`;
+        log.scrollTop = log.scrollHeight;
+        document.getElementById('damage-overlay').style.backgroundColor = "rgba(255,0,0,0.3)";
+        setTimeout(() => document.getElementById('damage-overlay').style.backgroundColor = "transparent", 200);
+    }
+
+    function showIntel(key) {
+        const d = intelData[key] || { title: 'Unknown', content: 'No data.' };
+        document.getElementById('intel-detail-container').innerHTML = `<h3 class="text-xl font-bold">${d.title}</h3><p class="mt-4 font-mono">${d.content}</p>`;
+    }
+
+    let map;
+    async function initMap() {
+        if (typeof google === 'undefined') return;
+        const { Map } = await google.maps.importLibrary("maps");
+        map = new Map(document.getElementById("map"), { center: { lat: 37, lng: -110 }, zoom: 4, mapId: 'DEMO' });
+    }
+
+    function panMap(key) { if (map) map.panTo(locations[key]); }
+
+    function handleChat(e) {
+        e.preventDefault();
+        const input = document.getElementById('chat-input');
+        const hist = document.getElementById('chat-history');
+        const div = document.createElement('div');
+        div.className = "text-green-500";
+        div.textContent = "AI: Analyzing " + input.value;
+        hist.appendChild(div);
+        speakText("Analyzing " + input.value);
+        input.value = '';
+    }
+
+    function renderTimeline() {
+        const cont = document.getElementById('timeline-content');
+        timelineEvents.forEach(e => {
+            const div = document.createElement('div');
+            div.className = "p-4 border-l-2 border-purple-500 mb-4 bg-white/5";
+            div.innerHTML = `<div class="text-xs">${e.year}</div><div class="font-bold">${e.title}</div><div class="text-xs text-gray-400">${e.desc}</div>`;
+            cont.appendChild(div);
         });
+    }
 
-        function printLog(text, className) {
-            const lines = text.split('\n');
-            lines.forEach(line => {
-                const p = document.createElement('p');
-                p.className = className + ' mb-1 typing-effect';
-                p.textContent = line;
-                terminalOutput.appendChild(p);
-            });
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        }
+    let audioPlaying = false;
+    function toggleAudio() {
+        audioPlaying = !audioPlaying;
+        if (audioPlaying) speakText(document.getElementById('transcript-box').textContent);
+        else window.speechSynthesis.cancel();
+    }
 
-        // Initial Focus
-        console.log("DEUS MODUS // SYSTEM ONLINE");
-    </script>
+    window.onload = () => {
+        initSpeech();
+        renderTimeline();
+        addToLog("SYSTEM ONLINE. AWAITING MISSION ORDERS.", "system-response");
+    };
+</script>
 </body>
 </html>
