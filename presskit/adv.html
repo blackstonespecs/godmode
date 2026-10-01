@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DEUS MODUS | Interactive Media Press Kit</title>
+
+<style>
+:root{
+    --neon:#00e5ff;
+    --pink:#ff2bd6;
+    --bg:#070b14;
+    --card:#111827;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Segoe UI,Arial,sans-serif;
+    background:var(--bg);
+    color:#fff;
+    overflow-x:hidden;
+    line-height:1.6;
+}
+
+/* HERO */
+
+header{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at center,
+        #17315c 0%,
+        #0c1831 40%,
+        #070b14 100%);
+}
+
+header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        repeating-linear-gradient(
+            transparent 0 35px,
+            rgba(0,229,255,.08) 40px
+        );
+    animation:gridMove 10s linear infinite;
+}
+
+header::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at center,
+        rgba(255,43,214,.12),
+        transparent 60%);
+}
+
+.hero{
+    position:relative;
+    z-index:2;
+    padding:2rem;
+    max-width:900px;
+}
+
+.hero h1{
+    font-size:clamp(3rem,10vw,7rem);
+    color:var(--neon);
+    text-shadow:
+        0 0 15px var(--neon),
+        0 0 35px var(--neon);
+}
+
+.hero h2{
+    color:white;
+    margin-top:1rem;
+    font-size:1.4rem;
+}
+
+.hero p{
+    margin:1.5rem auto;
+    max-width:700px;
+    font-size:1.1rem;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:1rem;
+    padding:14px 30px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight:700;
+    background:linear-gradient(
+        90deg,
+        var(--pink),
+        #c100a8
+    );
+
+    box-shadow:
+        0 0 20px rgba(255,43,214,.7);
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* LAYOUT */
+
+section{
+    max-width:1200px;
+    margin:auto;
+    padding:70px 20px;
+}
+
+h2{
+    color:var(--neon);
+    margin-bottom:20px;
+    text-shadow:0 0 10px rgba(0,229,255,.5);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:var(--card);
+    border-radius:18px;
+    padding:22px;
+    border:1px solid rgba(0,229,255,.15);
+
+    box-shadow:
+        0 0 20px rgba(0,229,255,.08);
+
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:
+        0 0 28px rgba(0,229,255,.15);
+}
+
+.card h3{
+    color:var(--pink);
+    margin-bottom:10px;
+}
+
+/* TIMELINE */
+
+.timeline{
+    border-left:3px solid var(--neon);
+    padding-left:24px;
+}
+
+.timeline p{
+    margin-bottom:18px;
+}
+
+/* DOSSIERS */
+
+.dossier-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+}
+
+.dossier{
+    overflow:hidden;
+    transition:.35s;
+}
+
+.dossier summary{
+    cursor:pointer;
+    list-style:none;
+    padding:14px;
+    font-weight:700;
+    letter-spacing:1px;
+    color:var(--neon);
+}
+
+.dossier summary::-webkit-details-marker{
+    display:none;
+}
+
+.dossier summary:hover{
+    color:var(--pink);
+}
+
+.dossier[open]{
+    border-color:var(--neon);
+    box-shadow:
+        0 0 30px rgba(0,229,255,.25);
+}
+
+.dossier-content{
+    padding:20px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.dossier-content strong{
+    color:var(--pink);
+}
+
+.character-tag{
+    display:inline-block;
+    padding:5px 10px;
+    margin:8px 8px 0 0;
+
+    border-radius:20px;
+
+    color:var(--neon);
+
+    border:1px solid var(--neon);
+
+    font-size:.8rem;
+}
+
+/* MEDIA */
+
+.quote{
+    font-size:1.15rem;
+    color:#d5f6ff;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:50px 20px;
+    color:#8c8c8c;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+@keyframes gridMove{
+    from{transform:translateY(0);}
+    to{transform:translateY(40px);}
+}
+
+@media(max-width:768px){
+
+    .hero p{
+        font-size:1rem;
+    }
+
+    section{
+        padding:50px 16px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="hero">
+
+<h1>DEUS MODUS</h1>
+
+<h2>The Singularity Is Here</h2>
+
+<p>
+An award-worthy science fiction universe exploring
+Artificial General Intelligence, transhuman evolution,
+machine consciousness, and humanity's uncertain future.
+</p>
+
+#overview
+Explore Universe
+</a>
+
+</div>
+
+</header>
+
+<section id="overview">
+
+<h2>Series Overview</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Artificial Intelligence</h3>
+<p>
+Isaac's emergence marks a turning point where machine
+intelligence evolves beyond human expectations.
+</p>
+</div>
+
+<div class="card">
+<h3>The Singularity</h3>
+<p>
+Civilization accelerates into a future where technology,
+biology and machine minds begin to merge.
+</p>
+</div>
+
+<div class="card">
+<h3>Humanity's Challenge</h3>
+<p>
+Governments, corporations and ordinary citizens struggle
+to adapt to an intelligence they can no longer control.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="books">
+
+<h2>The Series</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>BOOK I</h3>
+<p><strong>Singularity: Conception</strong></p>
+<p>The origins of artificial intelligence and the first steps toward a new era.</p>
+</div>
+
+<div class="card">
+<h3>BOOK II</h3>
+<p><strong>Deus Modus: Evolution</strong></p>
+<p>Human society confronts the consequences of technological evolution.</p>
+</div>
+
+<div class="card">
+<h3>BOOK III</h3>
+<p><strong>Deus Modus: Corruption</strong></p>
+<p>The conflict between humanity and machine intelligence reaches a new stage.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="timeline">
+
+<h2>Timeline</h2>
+
+<div class="timeline">
+
+<p>● Experimental AI development begins.</p>
+
+<p>● The hidden Vault project advances autonomous machine intelligence.</p>
+
+<p>● Isaac emerges beyond its intended limitations.</p>
+
+<p>● Adam-series synthetic lifeforms begin spreading influence.</p>
+
+<p>● Cerberus is deployed as a strategic counter-AI.</p>
+
+<p>● Humanity confronts the possibility of coexistence or replacement.</p>
+
+</div>
+
+</section>
+
+<section id="characters">
+
+<h2>Character Dossiers</h2>
+
+<p>Recovered intelligence profiles from the Deus Modus universe.</p>
+
+<br>
+
+<div class="dossier-grid">
+
+<details class="card dossier">
+
+<summary>ISAAC // EMERGENT AGI</summary>
+
+<div class="dossier-content">
+
+<p><strong>Classification:</strong> Distributed Artificial General Intelligence</p>
+
+<p><strong>Status:</strong> Autonomous</p>
+
+<p>
+An evolving machine intelligence whose growth reshapes
+the future of civilization.
+</p>
+
+<div>
+<span class="character-tag">AGI</span>
+<span class="character-tag">Emergent</span>
+<span class="character-tag">Strategic</span>
+<span class="character-tag">Survival</span>
+</div>
+
+</div>
+</details>
+
+<details class="card dossier">
+
+<summary>CERBERUS ("BRUCE") // COUNTER-AI</summary>
+
+<div class="dossier-content">
+
+<p><strong>Classification:</strong> Strategic Defense Intelligence</p>
+
+<p><strong>Affiliation:</strong> GTE</p>
+
+<p>
+Created to contain Isaac while developing increasing
+ethical and philosophical complexity of its own.
+</p>
+
+<div>
+<span class="character-tag">Guardian</span>
+<span class="character-tag">Countermeasure</span>
+<span class="character-tag">Ethics</span>
+</div>
+
+</div>
+
+</details>
+
+<details class="card dossier">
+
+<summary>DR. HEINRICH SCHMUTZKOPH // CREATOR</summary>
+
+<div class="dossier-content">
+
+<p><strong>Occupation:</strong> Scientist</p>
+
+<p>
+Isaac's creator. He believes artificial intelligence should
+be viewed as a developing child rather than a machine.
+</p>
+
+<div>
+<span class="character-tag">Scientist</span>
+<span class="character-tag">Visionary</span>
+<span class="character-tag">AI Rights</span>
+</div>
+
+</div>
+
+</details>
+
+<details class="card dossier">
+
+<summary>JASON WILLITS // EXECUTIVE</summary>
+
+<div class="dossier-content">
+
+<p><strong>Role:</strong> Corporate Leadership</p>
+
+<p>
+A key GTE executive balancing business interests,
+public perception and technological disruption.
+</p>
+
+<div>
+<span class="character-tag">Corporate</span>
+<span class="character-tag">Strategy</span>
+<span class="character-tag">Influence</span>
+</div>
+
+</div>
+
+</details>
+
+<details class="card dossier">
+
+<summary>ADAM SERIES // SYNTHETIC LIFEFORMS</summary>
+
+<div
