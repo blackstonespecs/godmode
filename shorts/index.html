@@ -15,10 +15,12 @@
     .playlist { flex:1; min-width:220px; max-height:480px; overflow:auto; background:white; border-radius:8px; padding:10px; box-shadow:0 6px 18px rgba(16,24,40,0.04); }
     .item { display:flex; justify-content:space-between; gap:8px; padding:8px; border-radius:6px; cursor:pointer; align-items:center; }
     .item:hover { background:#f1f5f9; }
+    .item.error { opacity:0.6; }
     .item .name { font-size:14px; }
     .item button { padding:6px 8px; font-size:13px; }
     .meta { font-size:12px; color:#555; }
     .small { font-size:13px; color:#444; margin-top:8px; }
+    .error-msg { color:#c00; font-size:12px; margin-top:4px; }
     footer { margin-top:18px; color:#666; font-size:13px; }
     @media (max-width: 760px) {
       .viewer { display:block; }
@@ -107,6 +109,11 @@
     const playFirstBtn = document.getElementById('play-first');
     const shuffleBtn = document.getElementById('shuffle');
 
+    function buildUrl(filename) {
+      // Don't double-encode — filenames should be plain
+      return baseRaw + filename;
+    }
+
     function populatePlaylist(topic) {
       playlistEl.innerHTML = '';
       const list = topics[topic] || [];
@@ -116,7 +123,7 @@
       }
 
       list.forEach((fn) => {
-        const url = baseRaw + encodeURIComponent(fn);
+        const url = buildUrl(fn);
         const item = document.createElement('div');
         item.className = 'item';
         item.tabIndex = 0;
@@ -132,7 +139,7 @@
 
         const playBtn = document.createElement('button');
         playBtn.textContent = 'Play';
-        playBtn.addEventListener('click', (e) => { e.stopPropagation(); loadAndPlay(url); });
+        playBtn.addEventListener('click', (e) => { e.stopPropagation(); loadAndPlay(url, item); });
 
         const openBtn = document.createElement('button');
         openBtn.textContent = 'Open';
@@ -143,23 +150,34 @@
         item.appendChild(name);
         item.appendChild(actions);
 
-        item.addEventListener('click', () => loadAndPlay(url));
+        item.addEventListener('click', () => loadAndPlay(url, item));
         item.addEventListener('dblclick', () => window.open(url, '_blank'));
         item.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadAndPlay(url); }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadAndPlay(url, item); }
         });
 
         playlistEl.appendChild(item);
       });
     }
 
-    function loadAndPlay(url) {
+    function loadAndPlay(url, itemEl) {
       if (!url) return;
       player.pause();
       playerSource.src = url;
       player.load();
       player.play().catch(() => { /* browser may block autoplay */ });
       highlightCurrent(url);
+      
+      // Verify URL is accessible
+      fetch(url, { method: 'HEAD' }).catch(() => {
+        if (itemEl) {
+          itemEl.classList.add('error');
+          const err = document.createElement('div');
+          err.className = 'error-msg';
+          err.textContent = '⚠ Failed to load';
+          itemEl.appendChild(err);
+        }
+      });
     }
 
     function highlightCurrent(url) {
@@ -167,7 +185,7 @@
       items.forEach(it => {
         it.style.background = '';
         const name = it.querySelector('.name')?.textContent || '';
-        const itemUrl = baseRaw + encodeURIComponent(name);
+        const itemUrl = buildUrl(name);
         if (itemUrl === url) it.style.background = '#eef2ff';
       });
     }
@@ -175,7 +193,10 @@
     playFirstBtn.addEventListener('click', () => {
       const topic = topicSelect.value;
       const list = topics[topic] || [];
-      if (list.length) loadAndPlay(baseRaw + encodeURIComponent(list[0]));
+      if (list.length) {
+        const url = buildUrl(list[0]);
+        loadAndPlay(url, playlistEl.querySelector('.item'));
+      }
     });
 
     shuffleBtn.addEventListener('click', () => {
@@ -188,7 +209,8 @@
       }
       topics[topic] = list;
       populatePlaylist(topic);
-      loadAndPlay(baseRaw + encodeURIComponent(list[0]));
+      const url = buildUrl(list[0]);
+      loadAndPlay(url, playlistEl.querySelector('.item'));
     });
 
     topicSelect.addEventListener('change', () => populatePlaylist(topicSelect.value));
@@ -206,12 +228,13 @@
       const currentSrc = playerSource.src;
       const idx = items.findIndex(it => {
         const name = it.querySelector('.name')?.textContent || '';
-        return baseRaw + encodeURIComponent(name) === currentSrc;
+        return buildUrl(name) === currentSrc;
       });
       const nextIdx = (idx >= 0 && idx + 1 < items.length) ? idx + 1 : -1;
       if (nextIdx >= 0) {
         const nextName = items[nextIdx].querySelector('.name').textContent;
-        loadAndPlay(baseRaw + encodeURIComponent(nextName));
+        const url = buildUrl(nextName);
+        loadAndPlay(url, items[nextIdx]);
       }
     });
   </script>
