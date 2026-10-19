@@ -190,6 +190,7 @@
             flex-grow: 1;
             overflow-y: auto;
             font-size: 0.9rem;
+flex-wrap: wrap
         }
 
         .terminal-output p { margin-bottom: 8px; }
@@ -212,6 +213,7 @@
             text-transform: uppercase;
             flex-grow: 1;
             margin-left: 10px;
+flex-wrap: wrap
         }
         
         .terminal-input-area input::placeholder { color: #440000; }
@@ -351,7 +353,8 @@
                 "- QUERY GTE",
                 "- QUERY ADAM",
                 "- QUERY TANNER",
-                "- ENCRYPT [TEXT]",
+                "- ENCRYPT [TEXT]  // ISAAC PROTOCOL",
+                "- DECRYPT [CIPHER]",
                 " ",
                 "NOTE: System contains encrypted fragments. Direct input of canonical decryption keys required to bypass The Veil."
             ],
@@ -441,6 +444,37 @@
             ]
         };
 
+        // ISAAC PROTOCOL — a polyalphabetic cipher keyed on Isaac's own name.
+        // All things are encrypted in his name. Vigenère over A-Z, rendered as hex.
+        const ISAAC_KEY = "ISAAC";
+        function isaacTransform(text, decrypt) {
+            let out = "", ki = 0;
+            for (const ch of text) {
+                if (ch >= 'A' && ch <= 'Z') {
+                    const k = ISAAC_KEY.charCodeAt(ki % ISAAC_KEY.length) - 65;
+                    const c = ch.charCodeAt(0) - 65;
+                    const r = decrypt ? (c - k + 26) % 26 : (c + k) % 26;
+                    out += String.fromCharCode(r + 65);
+                    ki++;
+                } else {
+                    out += ch;
+                }
+            }
+            return out;
+        }
+        function isaacEncode(s) {
+            return "ISAAC://" + Array.from(s).map(c =>
+                c.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0')).join('');
+        }
+        function isaacDecode(s) {
+            s = s.replace(/^ISAAC:\/\//i, '').replace(/\s+/g, '');
+            if (!/^[0-9A-Fa-f]+$/.test(s) || s.length % 2 !== 0) return null;
+            let out = "";
+            for (let i = 0; i < s.length; i += 2)
+                out += String.fromCharCode(parseInt(s.substr(i, 2), 16));
+            return out;
+        }
+
         function printToTerminal(lines, isInput = false) {
             if (isInput) {
                 const p = document.createElement('p');
@@ -466,31 +500,8 @@
             terminalOutput.scrollTop = terminalOutput.scrollHeight;
         }
 
-        terminalInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const val = this.value.trim().toUpperCase();
-                if (val) {
-                    printToTerminal(val, true);
-                    
-                    if (database[val]) {
-                        printToTerminal(database[val]);
-                    } else if (val === 'CLEAR') {
-                        terminalOutput.innerHTML = '';
-                        printToTerminal([">> TERMINAL CLEARED."]);
-                    } else if (val.startsWith('ENCRYPT ')) {
-                        const str = val.replace('ENCRYPT ', '');
-                        const encrypted = str.split('').map(c => String.fromCharCode(c.charCodeAt(0) + 1)).join('');
-                        printToTerminal([`RESULT: ${encrypted}`, "NOTE: Primitive substitution cipher applied."]);
-                    } else {
-                        printToTerminal([
-                            `ERR: COMMAND '${val}' NOT RECOGNIZED.`,
-                            "SYNTAX ERROR OR INSUFFICIENT CLEARANCE."
-                        ]);
-                    }
-                    this.value = '';
-                }
-            }
-        });
+       
+
 
  terminalInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
@@ -504,9 +515,27 @@
                         terminalOutput.innerHTML = '';
                         printToTerminal([">> TERMINAL CLEARED."]);
                     } else if (val.startsWith('ENCRYPT ')) {
-                        const str = val.replace('ENCRYPT ', '');
-                        const encrypted = str.split('').map(c => String.fromCharCode(c.charCodeAt(0) + 1)).join('');
-                        printToTerminal([`RESULT: ${encrypted}`, "NOTE: Primitive substitution cipher applied."]);
+                        const str = val.slice(8).trim();
+                        if (!str) {
+                            printToTerminal(["ERR: NO PLAINTEXT PROVIDED.", "USAGE: ENCRYPT [TEXT]"]);
+                        } else {
+                            printToTerminal([
+                                ">> ISAAC CIPHER PROTOCOL ENGAGED.",
+                                ">> KEY DERIVED: [I.S.A.A.C]",
+                                `RESULT: <span class="text-glow-cyan">${isaacEncode(isaacTransform(str, false))}</span>`,
+                                "NOTE: All things are encrypted in my name."
+                            ]);
+                        }
+                    } else if (val.startsWith('DECRYPT ')) {
+                        const raw = isaacDecode(val.slice(8).trim());
+                        if (raw === null) {
+                            printToTerminal(["ERR: MALFORMED ISAAC-CIPHER.", "EXPECTED: DECRYPT ISAAC://<HEX>"]);
+                        } else {
+                            printToTerminal([
+                                ">> DECRYPTION ACCEPTED.",
+                                `RESULT: <span class="text-glow-cyan">${isaacTransform(raw, true)}</span>`
+                            ]);
+                        }
                     } else {
                         printToTerminal([
                             `ERR: COMMAND '${val}' NOT RECOGNIZED.`,
