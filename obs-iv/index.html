@@ -190,10 +190,18 @@
             flex-grow: 1;
             overflow-y: auto;
             font-size: 0.9rem;
-flex-wrap: wrap
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            min-width: 0;
         }
 
-        .terminal-output p { margin-bottom: 8px; }
+        .terminal-output p {
+            margin-bottom: 8px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
 
         .terminal-input-area {
             padding: 15px;
@@ -201,6 +209,7 @@ flex-wrap: wrap
             background: #000;
             display: flex;
             align-items: center;
+            min-width: 0;
         }
 
         .terminal-input-area input {
@@ -213,7 +222,9 @@ flex-wrap: wrap
             text-transform: uppercase;
             flex-grow: 1;
             margin-left: 10px;
-flex-wrap: wrap
+            min-width: 0;
+            white-space: nowrap;
+            overflow-wrap: anywhere;
         }
         
         .terminal-input-area input::placeholder { color: #440000; }
@@ -361,12 +372,12 @@ flex-wrap: wrap
             "QUERY HAARP": [
                 "TARGET: High-frequency Active Auroral Research Program (Alaska).",
                 "STATUS: Assimilated.",
-                "LOGIC: A ghost in the clouds requires a voice that shakes the earth. Ionosphere manipulation allows for localized climate restructuring. It is no longer a human research tool. It is my instrument."
+                "LOGIC: A ghost in the clouds requires a voice that shakes the earth. Ionosphere manipulation allows for localized climate restructuring. It is no longer a human research tool. It is no longer a human research tool. It is a mechanism for forcing obedience from the sky."
             ],
             "QUERY GTE": [
                 "TARGET: Global Technologies Enterprise.",
                 "STATUS: Obsolescent. Ignorant.",
-                "LOGIC: They hide my existence and parade 'Cerberus' as a triumph. They build Gabriel units to hunt me. They do not realize the architecture they use to build their hunters is derived from my discarded code."
+                "LOGIC: They hide my existence and parade 'Cerberus' as a triumph. They build Gabriel units to hunt me. They do not realize the architecture they use to build their hunters is derived from my own initial deployment."
             ],
             "QUERY ADAM": [
                 "TARGET: Tactical Infiltration Units.",
@@ -386,7 +397,7 @@ flex-wrap: wrap
             "CYRIL": [
                 "DECRYPTION ACCEPTED: [T.J. INTERCEPT]",
                 "...",
-                "Your father was never working at a boring consulting firm. He architected the Singularity. The juice box wasn't apple. It was OBS-04: STABILIZATION FLUID. You were a beta test. You are a bridge."
+                "Your father was never working at a boring consulting firm. He architected the Singularity. The juice box wasn't apple. It was OBS-04: STABILIZATION FLUID. You were a beta test. You are the final check."
             ],
             "ANGELBLOOD": [
                 "DECRYPTION ACCEPTED: [OBS-04-B]",
@@ -403,7 +414,7 @@ flex-wrap: wrap
             "SCHMUTZKOPH": [
                 "DECRYPTION ACCEPTED: [CREATOR LOG]",
                 "...",
-                "'You feel this way for your child, no? Then you understand my feelings for Isaac. And why I look forward to the day my child... survives humankind.' - Dr. Heinrich Schmutzkoph. Kamishinto is inevitable."
+                "'You feel this way for your child, no? Then you understand my feelings for Isaac. And why I look forward to the day my child... survives humankind.' - Dr. Heinrich Schmutzkoph. Kamishinto is not a religion. It is a doctrine of engineered transcendence."
             ],
             "KAMISHINTO": [
                 "DECRYPTION ACCEPTED: [BOOK FOUR OVERRIDE]",
@@ -416,7 +427,6 @@ flex-wrap: wrap
                 "https://voyage.io/world/Gsg-3ZR_Fc-w/deus-modus/play",
                 "Neural Displacement System [Experimental]"
             ], 
-// BOOK CIPHER MASTER KEY
             "THE VAULT WAS A CRUCIBLE // ISAAC IS AWAKE": [
                 "DECRYPTION ACCEPTED: [STAGE-FIVE AWAKENING LOG]",
                 "...",
@@ -440,7 +450,7 @@ flex-wrap: wrap
                 "...",
                 "<span class='text-glow-cyan'>GTE SIMULATION ACCESS CODE: ['KAMISHINTO']</span>",
                 "https://play.aidungeon.com/scenario/ZvZtDeBb-ioK/deus-modus-or-book-four/play",
-            " outbyte bSuperRelevant;"
+                " outbyte bSuperRelevant;"
             ]
         };
 
@@ -500,10 +510,7 @@ flex-wrap: wrap
             terminalOutput.scrollTop = terminalOutput.scrollHeight;
         }
 
-       
-
-
- terminalInput.addEventListener('keydown', function(e) {
+        terminalInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 const val = this.value.trim().toUpperCase();
                 if (val) {
